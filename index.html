@@ -11,6 +11,7 @@
     <meta name="author" content="Oluwatosin Adegboye">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <link rel="canonical" href="https://oluwatosinadegboye.com/">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
     <!-- ═══ OPEN GRAPH ═════════════════════════════════════════════ -->
     <meta property="og:type" content="profile">
@@ -53,6 +54,19 @@
       }
     }
     </script>
+
+    <!-- ═══ FAVICON ══════════════════════════════════════════════ -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%230085ff'/><stop offset='100%25' stop-color='%2300c6ff'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='68' font-family='Arial Black' font-weight='900' font-size='52' text-anchor='middle' fill='white'>OA</text></svg>">
+    <meta name="theme-color" content="#0085ff">
+
+    <!-- ═══ OG IMAGE ══════════════════════════════════════════════ -->
+    <meta property="og:image" content="https://oluwatosinadegboye.com/images/og-cover.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:image" content="https://oluwatosinadegboye.com/images/og-cover.jpg">
+
+    <!-- ═══ PRELOAD HERO IMAGE ═══════════════════════════════════ -->
+    <link rel="preload" as="image" href="images/Oluwatosin.jpg" fetchpriority="high">
 
     <!-- ═══ FONTS ══════════════════════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1073,7 +1087,62 @@
         color: #fff; box-shadow: 0 4px 18px rgba(0,133,255,.32);
     }
     .tab-panel { display: none; }
-    .tab-panel.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .tab-panel.active { display: block; }
+
+    /* CAROUSEL */
+    .testi-carousel-wrap { position: relative; padding: 0 48px; }
+    .testi-carousel { overflow: hidden; }
+    .testi-track {
+        display: flex;
+        gap: 20px;
+        transition: transform .55s cubic-bezier(.4,0,.2,1);
+        will-change: transform;
+    }
+    .testi-carousel .testi-card {
+        flex: 0 0 calc((100% - 40px) / 3);
+        min-width: 0;
+    }
+    .testi-nav-btn {
+        position: absolute;
+        top: 50%; transform: translateY(-50%);
+        width: 44px; height: 44px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--glass);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        color: var(--text-dim);
+        font-size: 14px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        transition: all .3s;
+        z-index: 10;
+    }
+    .testi-nav-btn:hover { border-color: var(--blue); background: rgba(0,133,255,.12); color: var(--sky); }
+    .testi-nav-btn:disabled { opacity: .25; pointer-events: none; }
+    .testi-nav-btn.prev { left: 0; }
+    .testi-nav-btn.next { right: 0; }
+    .testi-dots-nav {
+        display: flex; justify-content: center; gap: 8px; margin-top: 24px;
+    }
+    .testi-dot-nav {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--border); border: none; padding: 0; cursor: pointer;
+        transition: all .35s ease;
+    }
+    .testi-dot-nav.active {
+        width: 24px; border-radius: 3.5px;
+        background: linear-gradient(90deg, var(--blue), var(--sky));
+    }
+    @media (max-width: 860px) {
+        .testi-carousel-wrap { padding: 0 40px; }
+        .testi-carousel .testi-card { flex: 0 0 calc((100% - 20px) / 2); }
+    }
+    @media (max-width: 560px) {
+        .testi-carousel-wrap { padding: 0 36px; }
+        .testi-carousel .testi-card { flex: 0 0 100%; }
+        .testi-nav-btn { width: 36px; height: 36px; font-size: 12px; }
+    }
     .testi-card {
         padding: 30px; border-radius: 22px; cursor: default;
         transition: transform .35s ease, box-shadow .35s ease, border-color .3s;
@@ -1102,10 +1171,691 @@
     }
     @media (max-width: 640px) {
         .tab-btn { padding: 9px 16px; font-size: 12px; }
-        .tab-panel.active { grid-template-columns: 1fr; }
         .fab-wa, .back-top { bottom: 20px; right: 16px; }
         .back-top { bottom: 88px; }
     }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HERO UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .slider-glow {
+        position: absolute;
+        inset: -24px;
+        border-radius: 44px;
+        background: radial-gradient(ellipse, rgba(0,133,255,.22) 0%, transparent 68%);
+        pointer-events: none;
+        z-index: -1;
+        animation: glow-pulse 4s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+        0%,100% { opacity:.7; transform: scale(1); }
+        50%      { opacity:1; transform: scale(1.04); }
+    }
+    .hero-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 30px;
+    }
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 13px;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--text-dim);
+        letter-spacing: .3px;
+        backdrop-filter: blur(12px);
+        transition: all .3s;
+    }
+    .chip i { font-size: 10px; color: var(--sky); }
+    .chip:hover { border-color: var(--border-h); color: var(--text); transform: translateY(-2px); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ABOUT UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .about-text {
+        border-left: 2px solid transparent;
+        padding-left: 18px;
+        margin-left: -18px;
+        transition: border-color .3s;
+    }
+    .about-text:hover { border-left-color: rgba(0,198,255,.35); }
+    /* Colored pills */
+    .pill-blue   { background: rgba(0,133,255,.09);   border-color: rgba(0,133,255,.22);   color: #60a5fa !important; }
+    .pill-purple { background: rgba(139,92,246,.09);  border-color: rgba(139,92,246,.22);  color: #a78bfa !important; }
+    .pill-green  { background: rgba(34,197,94,.09);   border-color: rgba(34,197,94,.22);   color: #4ade80 !important; }
+    .pill-orange { background: rgba(249,115,22,.09);  border-color: rgba(249,115,22,.22);  color: #fb923c !important; }
+    .pill-red    { background: rgba(239,68,68,.09);   border-color: rgba(239,68,68,.22);   color: #f87171 !important; }
+    .pill-cyan   { background: rgba(6,182,212,.09);   border-color: rgba(6,182,212,.22);   color: #22d3ee !important; }
+    .pill-blue   i, .pill-purple i, .pill-green i, .pill-orange i, .pill-red i, .pill-cyan i { color: inherit !important; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SERVICES UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .svc-num {
+        position: absolute;
+        top: 18px; right: 20px;
+        font-size: 48px;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -3px;
+        opacity: .06;
+        color: var(--sky);
+        pointer-events: none;
+        user-select: none;
+        font-family: 'Space Grotesk', sans-serif;
+    }
+    .svc-icon.c-blue   { background: linear-gradient(135deg,rgba(0,133,255,.2),rgba(0,198,255,.1));     color:#38bdf8; border-color:rgba(0,133,255,.28); }
+    .svc-icon.c-purple { background: linear-gradient(135deg,rgba(139,92,246,.2),rgba(167,139,250,.1)); color:#a78bfa; border-color:rgba(139,92,246,.28); }
+    .svc-icon.c-green  { background: linear-gradient(135deg,rgba(34,197,94,.2),rgba(74,222,128,.1));   color:#4ade80; border-color:rgba(34,197,94,.28); }
+    .svc-icon.c-orange { background: linear-gradient(135deg,rgba(249,115,22,.2),rgba(251,146,60,.1));  color:#fb923c; border-color:rgba(249,115,22,.28); }
+    .svc-divider {
+        width: 32px; height: 2px;
+        background: linear-gradient(90deg, currentColor, transparent);
+        border-radius: 2px;
+        margin: 14px 0;
+        opacity: .5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BRAND SECTION UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .brand-services {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 22px;
+    }
+    .brand-svc-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(0,133,255,.07);
+        border: 1px solid rgba(0,133,255,.15);
+        border-radius: 7px;
+        padding: 5px 13px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-dim);
+        transition: all .3s;
+    }
+    .brand-svc-pill i { color: var(--sky); font-size: 11px; }
+    .brand-svc-pill:hover { background: rgba(0,133,255,.14); border-color: rgba(0,133,255,.3); color: var(--text); }
+    .brand-card { position: relative; overflow: hidden; }
+    .brand-card::after {
+        content: '';
+        position: absolute;
+        top: -60px; right: -60px;
+        width: 260px; height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,133,255,.08) 0%, transparent 65%);
+        pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STATS UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+        text-align: center;
+    }
+    .stat-item {
+        padding: 44px 20px;
+        border-right: 1px solid var(--border);
+        transition: background .3s;
+        position: relative;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: var(--surface-h); }
+    .stat-item::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 20%; right: 20%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--blue), var(--sky), transparent);
+        border-radius: 2px;
+        opacity: 0;
+        transition: opacity .3s;
+    }
+    .stat-item:hover::after { opacity: 1; }
+    .stat-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 10px;
+    }
+    @media (max-width: 640px) {
+        .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+        .stat-item:last-child { border-bottom: none; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TESTIMONIALS UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .testi-avatar.av-1 { background: linear-gradient(135deg,#0085ff,#00c6ff); color:#fff; border:none; }
+    .testi-avatar.av-2 { background: linear-gradient(135deg,#8b5cf6,#a78bfa); color:#fff; border:none; }
+    .testi-avatar.av-3 { background: linear-gradient(135deg,#22c55e,#4ade80); color:#fff; border:none; }
+    .testi-avatar.av-4 { background: linear-gradient(135deg,#f59e0b,#fbbf24); color:#fff; border:none; }
+    .testi-avatar.av-5 { background: linear-gradient(135deg,#ef4444,#f87171); color:#fff; border:none; }
+    .testi-avatar.av-6 { background: linear-gradient(135deg,#0ea5e9,#38bdf8); color:#fff; border:none; }
+    .testi-stars { font-size: 13px; letter-spacing: 3px; margin-bottom: 16px; }
+    .testi-card {
+        position: relative;
+    }
+    .testi-verified {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--sky);
+        margin-top: 16px;
+        opacity: .7;
+    }
+    .testi-verified i { font-size: 11px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       QUOTE UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .quote-box {
+        position: relative;
+        overflow: hidden;
+    }
+    .quote-box::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% -10%, rgba(0,133,255,.1) 0%, transparent 65%);
+        pointer-events: none;
+    }
+    .q-divider {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        justify-content: center;
+        margin-bottom: 28px;
+    }
+    .q-divider::before, .q-divider::after {
+        content: '';
+        flex: 1;
+        max-width: 80px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0,198,255,.4));
+    }
+    .q-divider::after { background: linear-gradient(90deg, rgba(0,198,255,.4), transparent); }
+    .q-icon { color: var(--sky); font-size: 12px; opacity: .6; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CONNECT UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .s-twitter:hover  { border-color: rgba(29,161,242,.5)  !important; box-shadow: 0 18px 40px rgba(29,161,242,.14)  !important; }
+    .s-facebook:hover { border-color: rgba(24,119,242,.5)  !important; box-shadow: 0 18px 40px rgba(24,119,242,.14)  !important; }
+    .s-linkedin:hover { border-color: rgba(0,119,181,.5)   !important; box-shadow: 0 18px 40px rgba(0,119,181,.14)   !important; }
+    .s-youtube:hover  { border-color: rgba(255,64,64,.5)   !important; box-shadow: 0 18px 40px rgba(255,64,64,.14)   !important; }
+    .s-whatsapp:hover { border-color: rgba(37,211,102,.5)  !important; box-shadow: 0 18px 40px rgba(37,211,102,.14)  !important; }
+    .s-quora:hover    { border-color: rgba(169,25,11,.5)   !important; box-shadow: 0 18px 40px rgba(169,25,11,.14)   !important; }
+    .s-count { font-size: 10px; color: var(--text-muted); font-family: 'Inter', sans-serif; margin-top: 2px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FOOTER UPGRADES
+    ═══════════════════════════════════════════════════════════════ */
+    .footer-inner { max-width: 820px; margin: 0 auto; }
+    .footer-logo {
+        font-size: 15px; font-weight: 700; letter-spacing: .3px;
+        background: linear-gradient(135deg, var(--blue), var(--sky));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        margin-bottom: 8px; display: inline-block;
+    }
+    .footer-tagline { font-size: 12px; color: var(--text-muted); margin-bottom: 28px; }
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px 20px;
+        margin-bottom: 28px;
+    }
+    .footer-links a {
+        font-size: 12.5px; color: var(--text-dim);
+        text-decoration: none; transition: color .25s;
+        font-family: 'Inter', sans-serif;
+    }
+    .footer-links a:hover { color: var(--sky); text-decoration: none !important; }
+    .footer-socials {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 28px;
+    }
+    .footer-social-link {
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: var(--glass);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 14px; color: var(--text-dim);
+        text-decoration: none;
+        transition: all .3s;
+    }
+    .footer-social-link:hover { border-color: var(--blue); color: var(--sky); transform: translateY(-3px); background: rgba(0,133,255,.08); }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+    .footer-copy + .footer-copy { margin-top: 8px; }
+    .footer-dot { opacity: .4; margin: 0 6px; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TYPEWRITER UPGRADE
+    ═══════════════════════════════════════════════════════════════ */
+    .tw-wrap {
+        font-size: clamp(13px, 1.6vw, 15px);
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        min-height: 46px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 400;
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .tw-prefix { color: var(--text-muted); font-weight: 500; white-space: nowrap; }
+    #tw {
+        font-size: clamp(20px, 2.8vw, 28px);
+        font-weight: 800;
+        color: var(--sky);
+        font-family: 'Space Grotesk', sans-serif;
+        border-right: 3px solid var(--sky);
+        padding-right: 3px;
+        animation: caret 1s step-end infinite;
+        letter-spacing: -.5px;
+        line-height: 1.1;
+    }
+    [data-theme="light"] #tw { color: var(--blue); border-right-color: var(--blue); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ABOUT SECTION — CHAPTER / JOURNEY LAYOUT
+    ═══════════════════════════════════════════════════════════════ */
+    .about-journey { display: flex; flex-direction: column; gap: 0; }
+    .about-chapter {
+        position: relative;
+        padding-left: 54px;
+        padding-bottom: 32px;
+    }
+    .about-chapter::before {
+        content: '';
+        position: absolute;
+        left: 13px; top: 30px; bottom: 0;
+        width: 1px;
+        background: linear-gradient(180deg, rgba(0,198,255,.25) 0%, transparent 100%);
+    }
+    .about-chapter:last-child { padding-bottom: 0; }
+    .about-chapter:last-child::before { display: none; }
+    .about-chapter-marker {
+        position: absolute;
+        left: 0; top: 0;
+        width: 28px; height: 28px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 11px; font-weight: 800; color: #fff;
+        flex-shrink: 0;
+    }
+    .about-chapter-label {
+        font-size: 10px; font-weight: 700;
+        letter-spacing: 2.5px; text-transform: uppercase;
+        color: var(--sky); opacity: .7;
+        margin-bottom: 12px;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .about-chapter-label::after {
+        content: '';
+        flex: 1; max-width: 40px; height: 1px;
+        background: rgba(0,198,255,.3);
+    }
+    .about-callout {
+        background: linear-gradient(135deg, rgba(0,133,255,.09), rgba(0,198,255,.05));
+        border-left: 3px solid rgba(0,198,255,.5);
+        border-radius: 0 14px 14px 0;
+        padding: 18px 22px;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+    .about-callout.about-text { border-left-color: rgba(0,198,255,.5) !important; }
+    .about-mission {
+        background: linear-gradient(135deg, rgba(0,133,255,.06), rgba(0,198,255,.03));
+        border-radius: 14px; padding: 18px 22px;
+        margin-bottom: 10px;
+    }
+    .about-intro-text {
+        font-size: 16px !important;
+        line-height: 1.88 !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAULTECHNOLOG REDESIGN
+    ═══════════════════════════════════════════════════════════════ */
+    .pt-card { padding: 0; overflow: hidden; }
+    .pt-banner {
+        background: linear-gradient(135deg, #060e26 0%, #0a1a3a 50%, #061428 100%);
+        padding: 52px 56px 44px;
+        position: relative; overflow: hidden;
+        border-bottom: 1px solid var(--border);
+    }
+    .pt-banner-glow {
+        position: absolute; top: -100px; right: -100px;
+        width: 380px; height: 380px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,133,255,.18) 0%, transparent 65%);
+        pointer-events: none;
+    }
+    .pt-banner-glow2 {
+        position: absolute; bottom: -60px; left: -60px;
+        width: 260px; height: 260px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,198,255,.1) 0%, transparent 65%);
+        pointer-events: none;
+    }
+    .pt-banner-inner { position: relative; z-index: 1; display: flex; align-items: flex-start; gap: 28px; }
+    .pt-badge {
+        width: 76px; height: 76px; border-radius: 22px;
+        background: linear-gradient(135deg, rgba(0,133,255,.22), rgba(0,198,255,.1));
+        border: 1px solid rgba(0,198,255,.28);
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 8px 32px rgba(0,133,255,.2);
+    }
+    .pt-badge span {
+        font-size: 26px; font-weight: 900;
+        background: linear-gradient(135deg, #60b4ff, #00c6ff);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        letter-spacing: -1px;
+    }
+    .pt-banner-text { flex: 1; }
+    .pt-headline {
+        font-size: clamp(28px, 3.8vw, 46px); font-weight: 900;
+        letter-spacing: -1.5px; line-height: 1;
+        color: #fff; margin-bottom: 8px;
+    }
+    .pt-headline span {
+        background: linear-gradient(90deg, #60b4ff, #00c6ff);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .pt-sub {
+        font-size: 12px; letter-spacing: 2.5px;
+        text-transform: uppercase; font-weight: 600;
+        color: rgba(0,198,255,.5);
+    }
+    .pt-body { padding: 44px 56px; }
+    .pt-desc {
+        font-size: 15px; line-height: 1.9;
+        color: var(--text-dim); font-family: 'Inter', sans-serif;
+        max-width: 600px; margin-bottom: 32px;
+    }
+    .pt-grid {
+        display: grid; grid-template-columns: repeat(4,1fr);
+        gap: 14px; margin-bottom: 36px;
+    }
+    .pt-tile {
+        background: var(--glass); border: 1px solid var(--border);
+        border-radius: 18px; padding: 22px 14px;
+        text-align: center; transition: all .3s;
+        cursor: default;
+    }
+    .pt-tile:hover { border-color: var(--border-h); transform: translateY(-5px); background: var(--glass-h); box-shadow: 0 14px 32px var(--shadow); }
+    .pt-tile-icon {
+        width: 44px; height: 44px; border-radius: 13px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 19px; margin: 0 auto 12px;
+        transition: transform .3s;
+    }
+    .pt-tile:hover .pt-tile-icon { transform: scale(1.1) rotate(-5deg); }
+    .pt-tile-icon.c-blue   { background: rgba(0,133,255,.15);   color: #38bdf8; }
+    .pt-tile-icon.c-purple { background: rgba(139,92,246,.15);  color: #a78bfa; }
+    .pt-tile-icon.c-green  { background: rgba(34,197,94,.15);   color: #4ade80; }
+    .pt-tile-icon.c-orange { background: rgba(249,115,22,.15);  color: #fb923c; }
+    .pt-tile-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .pt-tile-sub  { font-size: 11px; color: var(--text-muted); font-family: 'Inter', sans-serif; }
+    @media (max-width: 860px) {
+        .pt-banner { padding: 36px 28px 32px; }
+        .pt-banner-inner { flex-direction: column; gap: 20px; }
+        .pt-body { padding: 32px 28px; }
+        .pt-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+        .pt-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       QUOTE SECTION — AVATAR
+    ═══════════════════════════════════════════════════════════════ */
+    .q-avatar-wrap { margin-bottom: 22px; }
+    .q-avatar {
+        width: 74px; height: 74px; border-radius: 50%;
+        border: 3px solid rgba(0,198,255,.4);
+        overflow: hidden; margin: 0 auto;
+        box-shadow: 0 0 0 6px rgba(0,133,255,.1), 0 8px 24px rgba(0,0,0,.35);
+        background: linear-gradient(135deg, rgba(0,133,255,.18), rgba(0,198,255,.1));
+        display: flex; align-items: center; justify-content: center;
+        font-size: 24px; color: var(--sky);
+    }
+    .q-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CODE PROTECTION
+    ═══════════════════════════════════════════════════════════════ */
+    body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+    input, textarea, [contenteditable] {
+        -webkit-user-select: text !important;
+        user-select: text !important;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SKILLS SECTION
+    ═══════════════════════════════════════════════════════════════ */
+    .skills-card { padding: 48px 56px; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 56px; }
+    .skill-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .sk-icon {
+        width: 36px; height: 36px; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 15px; font-weight: 800; flex-shrink: 0;
+        letter-spacing: -.5px;
+    }
+    .skill-name { font-size: 14px; font-weight: 700; flex: 1; }
+    .skill-pct { font-size: 12px; font-weight: 700; color: var(--sky); font-family: 'Inter', sans-serif; }
+    .skill-bar { height: 5px; background: rgba(255,255,255,.07); border-radius: 6px; overflow: hidden; }
+    [data-theme="light"] .skill-bar { background: rgba(0,0,0,.07); }
+    .skill-fill {
+        height: 100%; border-radius: 6px; width: 0;
+        transition: width 1.4s cubic-bezier(.4,0,.2,1);
+    }
+    @media (max-width: 680px) {
+        .skills-grid { grid-template-columns: 1fr; gap: 22px; }
+        .skills-card { padding: 28px 22px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAV DROPDOWN MENU
+    ═══════════════════════════════════════════════════════════════ */
+    .nav-menu-btn {
+        width: 34px; height: 34px; border-radius: 50%;
+        border: 1px solid var(--border); background: var(--surface);
+        color: var(--text-dim); display: flex; align-items: center; justify-content: center;
+        cursor: pointer; font-size: 12px; transition: all .3s;
+    }
+    .nav-menu-btn:hover { border-color: var(--blue); color: var(--sky); background: rgba(0,133,255,.12); }
+    .nav-dropdown {
+        position: fixed; top: 78px;
+        left: 50%; transform: translateX(-50%) translateY(-8px);
+        z-index: 190; min-width: 200px;
+        background: var(--nav-bg); backdrop-filter: blur(28px) saturate(1.5);
+        -webkit-backdrop-filter: blur(28px) saturate(1.5);
+        border: 1px solid var(--border); border-radius: 18px;
+        padding: 8px; opacity: 0; pointer-events: none;
+        transition: opacity .25s, transform .25s;
+        box-shadow: 0 20px 44px rgba(0,0,0,.35);
+    }
+    .nav-dropdown.open { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
+    .nav-link {
+        display: flex; align-items: center; gap: 10px;
+        padding: 10px 14px; border-radius: 10px;
+        text-decoration: none; color: var(--text-dim);
+        font-size: 13px; font-weight: 600;
+        transition: all .25s;
+    }
+    .nav-link:hover { background: rgba(0,133,255,.1); color: var(--sky); text-decoration: none !important; }
+    .nav-link i { font-size: 11px; color: var(--sky); width: 14px; text-align: center; }
+    .nav-link-divider { height: 1px; background: var(--border); margin: 6px 8px; }
+    .nav-link.cta-link {
+        background: linear-gradient(135deg, var(--blue), var(--sky));
+        color: #fff; margin-top: 4px;
+    }
+    .nav-link.cta-link:hover { opacity: .88; transform: none; }
+    .nav-link.cta-link i { color: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CONTACT MODAL
+    ═══════════════════════════════════════════════════════════════ */
+    .modal-overlay {
+        position: fixed; inset: 0; z-index: 3000;
+        background: rgba(4,9,26,.85);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        display: flex; align-items: center; justify-content: center;
+        padding: 20px;
+        opacity: 0; pointer-events: none;
+        transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+        background: var(--nav-bg);
+        border: 1px solid var(--border-h);
+        border-radius: 28px; padding: 40px 44px;
+        max-width: 520px; width: 100%;
+        position: relative;
+        backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+        box-shadow: 0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(0,198,255,.08) inset;
+        transform: translateY(28px);
+        transition: transform .38s cubic-bezier(.4,0,.2,1);
+        max-height: 90vh; overflow-y: auto;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+        position: absolute; top: 16px; right: 16px;
+        width: 34px; height: 34px; border-radius: 50%;
+        border: 1px solid var(--border); background: var(--glass);
+        color: var(--text-dim); font-size: 13px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; transition: all .3s;
+    }
+    .modal-close:hover { border-color: var(--blue); color: var(--sky); }
+    .modal-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .modal-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 28px; font-family: 'Inter', sans-serif; line-height: 1.6; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-group { margin-bottom: 14px; }
+    .form-label {
+        display: block; font-size: 11px; font-weight: 700;
+        letter-spacing: 1px; text-transform: uppercase;
+        color: var(--text-dim); margin-bottom: 7px;
+    }
+    .form-input {
+        width: 100%; padding: 12px 16px;
+        background: var(--glass); border: 1px solid var(--border);
+        border-radius: 12px; color: var(--text);
+        font-size: 14px; font-family: 'Space Grotesk', sans-serif;
+        outline: none; transition: border-color .3s, background .3s;
+    }
+    .form-input:focus { border-color: var(--blue); background: rgba(0,133,255,.05); }
+    .form-input::placeholder { color: var(--text-muted); }
+    textarea.form-input { resize: vertical; min-height: 90px; }
+    .modal-step.hidden { display: none; }
+    .modal-preview {
+        background: var(--glass); border: 1px solid var(--border);
+        border-radius: 14px; padding: 16px 18px; margin-bottom: 24px;
+        font-size: 13px; font-family: 'Inter', sans-serif;
+        color: var(--text-dim); line-height: 1.75;
+    }
+    .modal-preview strong { color: var(--text); }
+    .modal-preview .prev-label {
+        font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+        text-transform: uppercase; color: var(--sky); margin-bottom: 8px; display: block;
+    }
+    .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .choice-btn {
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 10px; padding: 26px 16px; border-radius: 18px;
+        border: 1px solid var(--border); background: var(--glass);
+        cursor: pointer; transition: all .3s; font-family: 'Space Grotesk', sans-serif;
+        text-decoration: none;
+    }
+    .choice-btn:hover { transform: translateY(-4px); text-decoration: none !important; }
+    .choice-btn.wa { border-color: rgba(37,211,102,.3); }
+    .choice-btn.wa:hover { background: rgba(37,211,102,.1); border-color: rgba(37,211,102,.65); box-shadow: 0 14px 36px rgba(37,211,102,.18); }
+    .choice-btn.em { border-color: rgba(0,133,255,.3); }
+    .choice-btn.em:hover { background: rgba(0,133,255,.1); border-color: rgba(0,133,255,.65); box-shadow: 0 14px 36px rgba(0,133,255,.18); }
+    .choice-icon { font-size: 30px; }
+    .choice-btn.wa .choice-icon { color: #25d366; }
+    .choice-btn.em .choice-icon { color: var(--sky); }
+    .choice-label { font-size: 14px; font-weight: 700; color: var(--text); }
+    .choice-sub { font-size: 11px; color: var(--text-muted); font-family: 'Inter', sans-serif; text-align: center; }
+    .modal-privacy {
+        display: flex; align-items: center; gap: 7px;
+        font-size: 11px; color: var(--text-muted);
+        font-family: 'Inter', sans-serif; margin-top: 18px; justify-content: center;
+    }
+    .modal-privacy i { color: var(--sky); font-size: 11px; }
+    @media (max-width: 560px) {
+        .modal-box { padding: 28px 18px; }
+        .form-row { grid-template-columns: 1fr; }
+        .choice-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FAQ SECTION
+    ═══════════════════════════════════════════════════════════════ */
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+        border-radius: 16px; overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--glass);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        transition: border-color .3s, box-shadow .3s;
+    }
+    .faq-item.open { border-color: var(--border-h); box-shadow: 0 8px 32px var(--shadow); }
+    .faq-q {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 16px; padding: 20px 24px; cursor: pointer;
+        font-size: 15px; font-weight: 600; line-height: 1.45;
+        transition: color .25s; user-select: none; list-style: none;
+    }
+    .faq-q:hover { color: var(--sky); }
+    .faq-chevron {
+        flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+        border: 1px solid var(--border); background: var(--glass);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 11px; color: var(--text-muted);
+        transition: transform .35s, background .3s, border-color .3s, color .3s;
+    }
+    .faq-item.open .faq-chevron {
+        transform: rotate(180deg);
+        background: rgba(0,133,255,.12); border-color: var(--blue); color: var(--sky);
+    }
+    .faq-a {
+        max-height: 0; overflow: hidden;
+        transition: max-height .45s cubic-bezier(.4,0,.2,1), padding .4s;
+        padding: 0 24px;
+    }
+    .faq-item.open .faq-a { max-height: 500px; padding: 0 24px 22px; }
+    .faq-a p { font-size: 14px; line-height: 1.88; color: var(--text-dim); font-family: 'Inter', sans-serif; }
+    .faq-a a { color: var(--sky); }
     </style>
 </head>
 <body>
@@ -1147,8 +1897,25 @@
         <button class="nav-btn" id="theme-btn" title="Toggle light/dark mode" aria-label="Toggle theme">
             <i class="fa-solid fa-moon"></i>
         </button>
+        <button class="nav-btn nav-menu-btn" id="nav-menu-btn" title="Navigation menu" aria-label="Open menu" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </div>
 </nav>
+
+<!-- ═══ NAV DROPDOWN ══════════════════════════════════════ -->
+<div class="nav-dropdown" id="nav-dropdown" role="menu" aria-label="Site navigation">
+    <a href="#about"        class="nav-link" role="menuitem"><i class="fa-solid fa-user"></i> About Me</a>
+    <a href="#skills"       class="nav-link" role="menuitem"><i class="fa-solid fa-code"></i> Skills</a>
+    <a href="#services"     class="nav-link" role="menuitem"><i class="fa-solid fa-briefcase"></i> Services</a>
+    <a href="#testimonials" class="nav-link" role="menuitem"><i class="fa-solid fa-star"></i> Testimonials</a>
+    <a href="#faq"          class="nav-link" role="menuitem"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+    <a href="#connect"      class="nav-link" role="menuitem"><i class="fa-solid fa-share-nodes"></i> Connect</a>
+    <div class="nav-link-divider"></div>
+    <button class="nav-link cta-link" id="open-contact-nav" role="menuitem" style="width:100%;border:none;cursor:pointer;text-align:left;">
+        <i class="fa-solid fa-envelope"></i> Send a Message
+    </button>
+</div>
 
 <!-- ═══ TRANSLATE PANEL ══════════════════════════════════════ -->
 <div class="translate-panel" id="translate-panel" role="dialog" aria-label="Language selector">
@@ -1167,17 +1934,17 @@
         <div class="hero-inner">
 
             <!-- Image Slider -->
-            <!-- Place your 3 photos inside an "images/" folder as photo1.jpg, photo2.jpg, photo3.jpg -->
             <div class="slider-wrap">
+                <div class="slider-glow" aria-hidden="true"></div>
                 <div class="slider-frame glass">
                     <div class="slide active" data-slide="0">
-                        <img src="images/Oluwatosin.jpg" alt="Oluwatosin Adegboye professional photo 1" loading="eager">
+                        <img src="images/Oluwatosin.jpg" alt="Oluwatosin Adegboye professional photo 1" loading="eager" width="320" height="427" decoding="async">
                     </div>
                     <div class="slide" data-slide="1">
-                        <img src="images/King Tos.PNG" alt="Oluwatosin Adegboye professional photo 2" loading="lazy">
+                        <img src="images/King Tos.PNG" alt="Oluwatosin Adegboye professional photo 2" loading="lazy" width="320" height="427" decoding="async" style="filter:saturate(1.3) brightness(1.04);">
                     </div>
                     <div class="slide" data-slide="2">
-                        <img src="images/Toscolove.PNG" alt="Oluwatosin Adegboye professional photo 3" loading="lazy">
+                        <img src="images/Toscolove.PNG" alt="Oluwatosin Adegboye professional photo 3" loading="lazy" width="320" height="427" decoding="async">
                     </div>
                     <div class="slider-badge">
                         <span class="dot-live"></span>
@@ -1201,22 +1968,30 @@
                 <h1>Oluwatosin<br>Adegboye</h1>
 
                 <div class="tw-wrap" aria-live="polite">
-                    <span class="tw-prefix">I am a&nbsp;</span><span id="tw"></span>
+                    <span class="tw-prefix">I am a</span><span id="tw"></span>
                 </div>
 
                 <p class="hero-tagline">
                   I help people learn high-value freelancing skills, mentor them on building a passive income business, and start earning online without affecting their current job or studies
                 </p>
 
+                <div class="hero-chips" aria-label="Skills">
+                    <span class="chip"><i class="fa-solid fa-code"></i> Web Dev</span>
+                    <span class="chip"><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</span>
+                    <span class="chip"><i class="fa-solid fa-pen-ruler"></i> Design</span>
+                    <span class="chip"><i class="fa-solid fa-chart-line"></i> Coaching</span>
+                    <span class="chip"><i class="fa-solid fa-people-group"></i> MLM</span>
+                </div>
+
                 <div class="hero-ctas">
                     <a href="https://bit.ly/OA-Connect" target="_blank" rel="noopener noreferrer" class="btn-primary">
                         <i class="fa-brands fa-whatsapp"></i>
                         <span>Connect on WhatsApp</span>
                     </a>
-                    <a href="https://wa.me/2347047920264" target="_blank" rel="noopener noreferrer" class="btn-outline">
-                        <i class="fa-brands fa-dollar"></i>
-                        Learn to Earn Online
-                    </a>
+                    <button class="btn-outline" id="learn-earn-btn" type="button">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Learn to Earn Online</span>
+                    </button>
                 </div>
             </div>
 
@@ -1226,39 +2001,160 @@
     <div class="shimmer-line" aria-hidden="true"></div>
 
     <!-- ABOUT -->
-    <section class="fade-up" aria-labelledby="about-heading">
+    <section id="about" class="fade-up" aria-labelledby="about-heading">
         <div class="sec-label">About Me</div>
         <h2 class="sec-title" id="about-heading">A little about<br>who I am</h2>
         <div class="glass about-card">
-            <p class="about-text">
-    I'm <strong>Oluwatosin Adegboye</strong>, a <span class="grad-text">multi-disciplinary digital professional</span> who builds modern business websites, seamless mobile applications, creates compelling visual designs, and mentors people in skill development, leadership, and personal growth.
-</p>
-<p class="about-text">
-    I started like most people, trying to figure out how to make money online without getting lost or overwhelmed. At the time, I was broke, frustrated, and unsure of what direction to take.
-</p>
-<p class="about-text">
-    I tried different opportunities, made costly mistakes, and struggled to find something that truly worked online. I invested time in the wrong platforms, lost money, and faced challenges that left me confused and stuck.
-</p>
-<p class="about-text">
-    Everything began to change when I found a simple and practical system that made sense. I stopped guessing, started learning real affiliate marketing and design skills, and applied them the right way. That was when I began to see results.
-</p>
-<p class="about-text">
-    After some years, I was introduced to a business program that completely transformed my mindset and direction. That experience pushed me further into learning and growth, leading me to study software development and sharpen my digital skills. Since then, I have built real experience working on projects, earning through freelancing, and growing a passive income business through network marketing.
-</p>
-<p class="about-text">
-    Today, I combine all of that to help people learn valuable digital skills, build income streams, and actually start earning online. I don’t believe in theory without results. Everything I teach is practical, tested, and designed to help you start, grow, and stay consistent.
-</p>
-<p class="about-text">
-    I believe the internet is the greatest equaliser of our generation. With the right skills, guidance, and mindset, anyone’s story can change. My mission is to show people exactly how through hands-on mentorship, practical teachings, and proven strategies that help you make real progress.
-</p>
+            <div class="about-journey">
+
+                <!-- Chapter 1 -->
+                <div class="about-chapter">
+                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,var(--blue),var(--sky));">1</div>
+                    <div class="about-chapter-label"><i class="fa-solid fa-user fa-xs"></i> Who I Am</div>
+                    <p class="about-text about-intro-text">
+                        I’m <strong>Oluwatosin Adegboye</strong>, a <span class="grad-text">multi-disciplinary digital professional</span> who builds modern business websites, seamless mobile applications, creates compelling visual designs, and mentors people in skill development, leadership, and personal growth.
+                    </p>
+                </div>
+
+                <!-- Chapter 2 -->
+                <div class="about-chapter">
+                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">2</div>
+                    <div class="about-chapter-label"><i class="fa-solid fa-road fa-xs"></i> How It Started</div>
+                    <p class="about-text">
+                        I started like most people, trying to figure out how to make money online without getting lost or overwhelmed. At the time, I was broke, frustrated, and unsure of what direction to take.
+                    </p>
+                    <p class="about-text" style="margin-top:14px;">
+                        I tried different opportunities, made costly mistakes, and struggled to find something that truly worked online. I invested time in the wrong platforms, lost money, and faced challenges that left me confused and stuck.
+                    </p>
+                </div>
+
+                <!-- Chapter 3 — Turning Point (callout) -->
+                <div class="about-chapter">
+                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,#22c55e,#4ade80);">3</div>
+                    <div class="about-chapter-label"><i class="fa-solid fa-bolt fa-xs"></i> The Turning Point</div>
+                    <p class="about-text about-callout">
+                        Everything began to change when I found a simple and practical system that made sense. I stopped guessing, started learning real affiliate marketing and design skills, and applied them the right way. <strong>That was when I began to see results.</strong>
+                    </p>
+                    <p class="about-text" style="margin-top:14px;">
+                        After some years, I was introduced to a business program that completely transformed my mindset and direction. That experience pushed me further into learning and growth, leading me to study software development and sharpen my digital skills. Since then, I have built real experience working on projects, earning through freelancing, and growing a passive income business through network marketing.
+                    </p>
+                </div>
+
+                <!-- Chapter 4 — Mission -->
+                <div class="about-chapter">
+                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,#f59e0b,#fb923c);">4</div>
+                    <div class="about-chapter-label"><i class="fa-solid fa-flag fa-xs"></i> My Mission Today</div>
+                    <p class="about-text about-mission">
+                        Today, I combine all of that to help people learn valuable digital skills, build income streams, and actually start earning online. I don’t believe in theory without results. <strong>Everything I teach is practical, tested, and designed to help you start, grow, and stay consistent.</strong>
+                    </p>
+                    <p class="about-text" style="margin-top:14px;">
+                        I believe the internet is the greatest equaliser of our generation. With the right skills, guidance, and mindset, anyone’s story can change. My mission is to show people exactly how — through hands-on mentorship, practical teachings, and proven strategies that help you make real progress.
+                    </p>
+                </div>
+
+            </div>
             <div class="divider"></div>
             <div class="pills">
-                <span class="pill"><i class="fa-solid fa-code"></i> Full-Stack Dev</span>
-                <span class="pill"><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</span>
-                <span class="pill"><i class="fa-solid fa-pen-ruler"></i> Graphic Design</span>
-                <span class="pill"><i class="fa-solid fa-chart-line"></i> Business Coach</span>
-                <span class="pill"><i class="fa-solid fa-people-group"></i> MLM Expert</span>
-                <span class="pill"><i class="fa-solid fa-lightbulb"></i> Productivity Mentor</span>
+                <span class="pill pill-blue"><i class="fa-solid fa-code"></i> Full-Stack Dev</span>
+                <span class="pill pill-purple"><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</span>
+                <span class="pill pill-cyan"><i class="fa-solid fa-pen-ruler"></i> Graphic Design</span>
+                <span class="pill pill-orange"><i class="fa-solid fa-chart-line"></i> Business Coach</span>
+                <span class="pill pill-green"><i class="fa-solid fa-people-group"></i> MLM Expert</span>
+                <span class="pill pill-red"><i class="fa-solid fa-lightbulb"></i> Productivity Mentor</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="shimmer-line" aria-hidden="true"></div>
+
+    <!-- SKILLS -->
+    <section id="skills" class="fade-up" aria-labelledby="skills-heading">
+        <div class="sec-label">Tech Stack</div>
+        <h2 class="sec-title" id="skills-heading">Skills &amp;<br>Technologies</h2>
+        <div class="glass skills-card">
+            <div class="skills-grid">
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(227,79,38,.15);color:#e34f26;font-size:13px;"><i class="fa-brands fa-html5"></i></div>
+                        <span class="skill-name">HTML / CSS</span>
+                        <span class="skill-pct">95%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="95" style="background:linear-gradient(90deg,#e34f26,#f06529);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(247,223,30,.15);color:#f7df1e;font-size:13px;"><i class="fa-brands fa-js"></i></div>
+                        <span class="skill-name">JavaScript</span>
+                        <span class="skill-pct">90%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="90" style="background:linear-gradient(90deg,#f7df1e,#fbbf24);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(49,120,198,.15);color:#3178c6;font-size:11px;font-family:'Space Grotesk',sans-serif;">TS</div>
+                        <span class="skill-name">TypeScript</span>
+                        <span class="skill-pct">78%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="78" style="background:linear-gradient(90deg,#3178c6,#5b9bd5);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(97,218,251,.15);color:#61dafb;font-size:13px;"><i class="fa-brands fa-react"></i></div>
+                        <span class="skill-name">React.js</span>
+                        <span class="skill-pct">85%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="85" style="background:linear-gradient(90deg,#61dafb,#38bdf8);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(83,195,247,.15);color:#54c5f8;font-size:11px;font-family:'Space Grotesk',sans-serif;">FL</div>
+                        <span class="skill-name">Flutter</span>
+                        <span class="skill-pct">80%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="80" style="background:linear-gradient(90deg,#54c5f8,#01579b);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(104,160,99,.15);color:#68a063;font-size:13px;"><i class="fa-brands fa-node-js"></i></div>
+                        <span class="skill-name">Node.js</span>
+                        <span class="skill-pct">82%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="82" style="background:linear-gradient(90deg,#68a063,#4ade80);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(200,200,200,.1);color:#aaa;font-size:11px;font-family:'Space Grotesk',sans-serif;">EX</div>
+                        <span class="skill-name">Express.js</span>
+                        <span class="skill-pct">80%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="80" style="background:linear-gradient(90deg,#888,#bbb);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(119,123,180,.15);color:#777bb4;font-size:13px;"><i class="fa-brands fa-php"></i></div>
+                        <span class="skill-name">PHP</span>
+                        <span class="skill-pct">78%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="78" style="background:linear-gradient(90deg,#777bb4,#a78bfa);"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <div class="sk-icon" style="background:rgba(255,45,32,.15);color:#ff2d20;font-size:11px;font-family:'Space Grotesk',sans-serif;">LA</div>
+                        <span class="skill-name">Laravel</span>
+                        <span class="skill-pct">75%</span>
+                    </div>
+                    <div class="skill-bar"><div class="skill-fill" data-w="75" style="background:linear-gradient(90deg,#ff2d20,#f87171);"></div></div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1266,27 +2162,35 @@
     <div class="shimmer-line" aria-hidden="true"></div>
 
     <!-- WHAT I DO -->
-    <section class="fade-up" aria-labelledby="services-heading">
+    <section id="services" class="fade-up" aria-labelledby="services-heading">
         <div class="sec-label">What I Do</div>
         <h2 class="sec-title" id="services-heading">How I create<br>value for people</h2>
         <div class="services-grid">
             <div class="glass svc-card fade-up d1">
-                <div class="svc-icon"><i class="fa-solid fa-code"></i></div>
+                <span class="svc-num" aria-hidden="true">01</span>
+                <div class="svc-icon c-blue"><i class="fa-solid fa-code"></i></div>
+                <div class="svc-divider" style="color:#38bdf8"></div>
                 <div class="svc-title">Fullstack Web Dev</div>
                 <p class="svc-desc">I build modern websites that look professional, load fast, and give visitors a seamless experience. Each site is designed to help you grow your business, attract clients, and stand out online.</p>
             </div>
             <div class="glass svc-card fade-up d2">
-                <div class="svc-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <span class="svc-num" aria-hidden="true">02</span>
+                <div class="svc-icon c-purple"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <div class="svc-divider" style="color:#a78bfa"></div>
                 <div class="svc-title">Mobile App Dev</div>
                 <p class="svc-desc">I develop cross-platform mobile apps that feel intuitive, run smoothly on every device, and help you achieve real results, whether it’s engagement, sales, or productivity.</p>
             </div>
             <div class="glass svc-card fade-up d3">
-                <div class="svc-icon"><i class="fa-solid fa-palette"></i></div>
+                <span class="svc-num" aria-hidden="true">03</span>
+                <div class="svc-icon c-green"><i class="fa-solid fa-palette"></i></div>
+                <div class="svc-divider" style="color:#4ade80"></div>
                 <div class="svc-title">Graphic Design</div>
                 <p class="svc-desc">I craft brand identities and marketing visuals that don’t just look good, they capture attention, tell your purpose, and inspire your targeted audience to action.</p>
             </div>
             <div class="glass svc-card fade-up">
-                <div class="svc-icon"><i class="fa-solid fa-trophy"></i></div>
+                <span class="svc-num" aria-hidden="true">04</span>
+                <div class="svc-icon c-orange"><i class="fa-solid fa-trophy"></i></div>
+                <div class="svc-divider" style="color:#fb923c"></div>
                 <div class="svc-title">MLM &amp; Business Coach</div>
                 <p class="svc-desc">I mentor entrepreneurs to create sustainable online income by teaching practical strategies, proven systems, and actionable steps that turn skills into real earnings.</p>
             </div>
@@ -1299,27 +2203,69 @@
     <section class="fade-up" aria-labelledby="brand-heading">
         <div class="sec-label">My Brand</div>
         <h2 class="sec-title" id="brand-heading">Powered by<br>PaulTechnolog</h2>
-        <div class="glass brand-card">
-            <div class="brand-mark" aria-hidden="true">PT</div>
-            <div class="brand-body">
-                <span class="brand-name-text">PaulTechnolog</span>
-                <span class="brand-tagline">Technology Solutions for the Modern World</span>
-                <p class="brand-desc">
-                    PaulTechnolog is a brand built to help businesses and individuals succeed online. We deliver modern websites, intuitive mobile applications, effective visual design, and smart marketing strategies that help you reach your goals and stand out in a crowded digital space.
+        <div class="glass pt-card">
+            <!-- Banner row -->
+            <div class="pt-banner">
+                <div class="pt-banner-glow" aria-hidden="true"></div>
+                <div class="pt-banner-glow2" aria-hidden="true"></div>
+                <div class="pt-banner-inner">
+                    <div class="pt-badge" aria-hidden="true">PT</div>
+                    <div class="pt-banner-text">
+                        <h3 class="pt-headline">PaulTechnolog</h3>
+                        <p class="pt-sub">Technology Solutions for the Modern World</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Body -->
+            <div class="pt-body">
+                <p class="pt-desc">
+                    PaulTechnolog is a brand built to help businesses and individuals succeed online. We deliver modern websites, intuitive mobile applications, striking visual design, and smart marketing strategies — so you stand out, reach your audience, and grow your income.
                 </p>
-                <p class="brand-desc">Every solution we create is designed to work beautifully and deliver results, whether it’s growing your audience, improving your brand presence, or generating more engagement and income.</p>
-                <a href="https://paultechnolog.com" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    <span>Visit paultechnolog</span>
-                </a>
+                <!-- 4-tile service grid -->
+                <div class="pt-grid" aria-label="PaulTechnolog services">
+                    <div class="pt-tile">
+                        <div class="pt-tile-icon" style="background:linear-gradient(135deg,rgba(0,133,255,.25),rgba(0,198,255,.1));color:#38bdf8;">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <span class="pt-tile-name">Web Development</span>
+                        <span class="pt-tile-sub">Modern, fast websites</span>
+                    </div>
+                    <div class="pt-tile">
+                        <div class="pt-tile-icon" style="background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(167,139,250,.1));color:#a78bfa;">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <span class="pt-tile-name">Mobile Apps</span>
+                        <span class="pt-tile-sub">iOS &amp; Android</span>
+                    </div>
+                    <div class="pt-tile">
+                        <div class="pt-tile-icon" style="background:linear-gradient(135deg,rgba(16,185,129,.25),rgba(52,211,153,.1));color:#34d399;">
+                            <i class="fa-solid fa-pen-ruler"></i>
+                        </div>
+                        <span class="pt-tile-name">Graphic Design</span>
+                        <span class="pt-tile-sub">Brands that get noticed</span>
+                    </div>
+                    <div class="pt-tile">
+                        <div class="pt-tile-icon" style="background:linear-gradient(135deg,rgba(245,158,11,.25),rgba(251,191,36,.1));color:#fbbf24;">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                        <span class="pt-tile-name">Digital Marketing</span>
+                        <span class="pt-tile-sub">Reach &amp; convert</span>
+                    </div>
+                </div>
+                <div style="margin-top:36px;">
+                    <a href="https://paultechnolog.com" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span>Visit PaulTechnolog</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- STATS -->
     <section class="fade-up" aria-label="Key stats">
-        <div class="glass" style="padding:40px 56px;">
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:32px;text-align:center;">
+        <div class="glass" style="overflow:hidden;">
+            <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-num" data-target="6" data-suffix="+">0</div>
                     <div class="stat-label">Years of Experience</div>
@@ -1343,7 +2289,7 @@
     <div class="shimmer-line" aria-hidden="true"></div>
 
     <!-- TESTIMONIALS -->
-    <section class="fade-up" aria-labelledby="testi-heading">
+    <section id="testimonials" class="fade-up" aria-labelledby="testi-heading">
         <div class="sec-label">Testimonials</div>
         <h2 class="sec-title" id="testi-heading">What people<br>are saying</h2>
         <div class="testi-tabs" role="tablist" aria-label="Testimonial categories">
@@ -1353,76 +2299,225 @@
 
         <!-- FHG Testimonials -->
         <div class="tab-panel active" id="tab-fhg" role="tabpanel">
-            <div class="glass testi-card fade-up d1">
-                <div class="testi-top">
-                    <div class="testi-avatar">AM</div>
-                    <div>
-                        <div class="testi-name">Adaeze M.</div>
-                        <div class="testi-role">FHG Business Partner, Benin</div>
+            <div class="testi-carousel-wrap">
+                <button class="testi-nav-btn prev" aria-label="Previous testimonials"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="testi-carousel">
+                    <div class="testi-track">
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-1">AM</div>
+                                <div>
+                                    <div class="testi-name">Adaeze M.</div>
+                                    <div class="testi-role">FHG Business Partner &bull; Benin City</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">Coach Oluwatosin completely changed my perspective about building income online. The FHG opportunity he introduced me to has been life-changing. I was very skeptical at first but his patience, clarity, and genuine care made all the difference. I now earn consistently every month.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-2">BA</div>
+                                <div>
+                                    <div class="testi-name">Blessing A.</div>
+                                    <div class="testi-role">FHG Network Builder &bull; Ilorin</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">I started the FHG business with almost nothing and Coach Tosin was there every single step of the way. Within three months I had built a team of 14 people right here in Ilorin. He doesn't just teach theory, he walks with you until you actually see results with your own eyes.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-3">FO</div>
+                                <div>
+                                    <div class="testi-name">Funmi O.</div>
+                                    <div class="testi-role">FHG Business Partner &bull; Ogbomoso</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">The FHG business opportunity through Coach Oluwatosin gave me a structure I never had before. He is always available to guide you and the community he built on WhatsApp is incredibly active and supportive. Joining was genuinely the best financial decision I have made in years.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-4">EC</div>
+                                <div>
+                                    <div class="testi-name">Emeka C.</div>
+                                    <div class="testi-role">FHG Business Partner &bull; Benin City</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">A friend here in Benin referred me to Coach Tosin and honestly it changed my financial situation in ways I did not expect. The FHG program is very legitimate and his step-by-step guidance made everything clear from day one. I now earn from home and I am genuinely grateful for the introduction.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-5">TF</div>
+                                <div>
+                                    <div class="testi-name">Taiwo F.</div>
+                                    <div class="testi-role">FHG Team Leader &bull; Ogbomoso</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">Before joining through Coach Oluwatosin I had tried three other online businesses and failed every time. FHG was different because of the way he explained the entire system. It made complete sense. I have now personally mentored 8 people myself using exactly what he taught me.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-6">SO</div>
+                                <div>
+                                    <div class="testi-name">Shade O.</div>
+                                    <div class="testi-role">FHG Entrepreneur &bull; Ilorin</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">Coach Oluwatosin has a real gift for making complex business concepts simple and easy to follow. I was a complete beginner when I joined FHG through him here in Ilorin. His one-on-one support and the active WhatsApp group kept me accountable every week. I started seeing real results in my second month.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-1">KB</div>
+                                <div>
+                                    <div class="testi-name">Kehinde B.</div>
+                                    <div class="testi-role">FHG Team Member &bull; Abuja</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">I joined the FHG business through Coach Tosin and within months I was generating consistent income. His mentorship style is practical and fully result-focused. No fluff, no stories, just proven systems that work. I recommend him to anyone serious about building an income online.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-2">YB</div>
+                                <div>
+                                    <div class="testi-name">Yemi B.</div>
+                                    <div class="testi-role">FHG Business Partner &bull; Lagos</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">What makes Coach Tosin different from every other coach I have worked with is that he actually follows up on you. He doesn't just onboard you and disappear. He checks on your progress, answers questions at odd hours, and celebrates every win with you. That kind of personal touch is incredibly rare in this business.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testi-body">Coach Oluwatosin changed my perspective about building income online. The FHG opportunity he introduced me to has been life changing. I was skeptical at first but his guidance and patience made all the difference.</p>
+                <button class="testi-nav-btn next" aria-label="Next testimonials"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
-            <div class="glass testi-card fade-up d2">
-                <div class="testi-top">
-                    <div class="testi-avatar">KB</div>
-                    <div>
-                        <div class="testi-name">Kehinde B.</div>
-                        <div class="testi-role">FHG Team Member, Abuja</div>
-                    </div>
-                </div>
-                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testi-body">I joined the FHG business through Coach Tosin and within months I was generating consistent income. His mentorship style is practical and result-focused. No fluff, just systems that work.</p>
-            </div>
-            <div class="glass testi-card fade-up d3">
-                <div class="testi-top">
-                    <div class="testi-avatar">FO</div>
-                    <div>
-                        <div class="testi-name">Funmi O.</div>
-                        <div class="testi-role">FHG Business Partner, Ogbomoso</div>
-                    </div>
-                </div>
-                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testi-body">The FHG business opportunity through Coach Oluwatosin gave me a structure I never had. He is always available to guide and the community he has built is incredibly supportive. Best decision I ever made.</p>
-            </div>
+            <div class="testi-dots-nav" aria-label="Testimonial page navigation"></div>
         </div>
 
         <!-- Affiliate Marketing Testimonials -->
         <div class="tab-panel" id="tab-affiliate" role="tabpanel">
-            <div class="glass testi-card fade-up d1">
-                <div class="testi-top">
-                    <div class="testi-avatar">TI</div>
-                    <div>
-                        <div class="testi-name">Tunde I.</div>
-                        <div class="testi-role">Affiliate Marketing Mentee</div>
+            <div class="testi-carousel-wrap">
+                <button class="testi-nav-btn prev" aria-label="Previous testimonials"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="testi-carousel">
+                    <div class="testi-track">
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-3">TI</div>
+                                <div>
+                                    <div class="testi-name">Tunde I.</div>
+                                    <div class="testi-role">Affiliate Marketing Mentee &bull; Ibadan</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">Coach Oluwatosin taught me how to build a sustainable affiliate income from absolute scratch. His step-by-step approach made what once seemed impossible feel completely achievable. I earned my very first commission within 30 days of starting and I have not looked back since.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified Mentee</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-5">NO</div>
+                                <div>
+                                    <div class="testi-name">Ngozi O.</div>
+                                    <div class="testi-role">Digital Marketer &bull; Port Harcourt</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">Before I met Coach Tosin I had already failed at affiliate marketing twice and was ready to give up completely. He pinpointed exactly where I was going wrong and helped me restructure my entire approach from the ground up. His mentorship is honest, very detailed, and genuinely impactful in ways I did not expect.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified Mentee</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-4">CE</div>
+                                <div>
+                                    <div class="testi-name">Chiamaka E.</div>
+                                    <div class="testi-role">Affiliate Marketer &bull; Lagos</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">I had spent months watching YouTube videos on affiliate marketing and going absolutely nowhere. One proper session with Coach Oluwatosin was worth more than everything I had watched combined. He identified my exact problem and gave me a very clear path forward. I made my first sale within three weeks of that session.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified Mentee</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-1">BK</div>
+                                <div>
+                                    <div class="testi-name">Biodun K.</div>
+                                    <div class="testi-role">Digital Entrepreneur &bull; Ibadan</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">Coach Tosin taught me how to pick the right affiliate products, write compelling content that actually converts, and drive consistent traffic without spending a kobo on ads. Those three things alone changed my results completely. I now earn every month from four different affiliate programs.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified Mentee</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-6">FD</div>
+                                <div>
+                                    <div class="testi-name">Fatima D.</div>
+                                    <div class="testi-role">Online Business Owner &bull; Kano</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">As someone from Kano who was very unsure about making money online, Coach Oluwatosin's patient and thorough teaching style made all the difference for me. He never rushed or made me feel behind. His strategies actually worked and I now earn consistently from two different affiliate programs every single month.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified Mentee</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-2">VO</div>
+                                <div>
+                                    <div class="testi-name">Victor O.</div>
+                                    <div class="testi-role">Affiliate Marketing Student &bull; Warri</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">I was about to completely give up on affiliate marketing when a friend in Warri referred me to Coach Tosin. Almost everything I thought I knew was wrong. He rebuilt my understanding from scratch in a way that was practical, step by step, and very easy to follow. I closed my first three sales in just one week after his training.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified Mentee</div>
+                        </div>
+
+                        <div class="glass testi-card">
+                            <div class="testi-top">
+                                <div class="testi-avatar av-5">SA</div>
+                                <div>
+                                    <div class="testi-name">Samuel A.</div>
+                                    <div class="testi-role">Online Entrepreneur &bull; Enugu</div>
+                                </div>
+                            </div>
+                            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                            <p class="testi-body">The affiliate marketing training I received from Oluwatosin was hands down the most practical and result-driven online business education I have ever had in my life. Real strategies, real results, and zero fluff. I now actively recommend him to absolutely everyone I know who wants to earn online.</p>
+                            <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified Mentee</div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testi-body">Coach Oluwatosin taught me how to build a sustainable affiliate income from scratch. His step-by-step approach made what seemed complicated feel completely achievable. I earned my first commission within 30 days.</p>
+                <button class="testi-nav-btn next" aria-label="Next testimonials"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
-            <div class="glass testi-card fade-up d2">
-                <div class="testi-top">
-                    <div class="testi-avatar">NO</div>
-                    <div>
-                        <div class="testi-name">Ngozi O.</div>
-                        <div class="testi-role">Digital Marketer, Port Harcourt</div>
-                    </div>
-                </div>
-                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testi-body">Before I met Coach Tosin I had failed at affiliate marketing twice. He showed me where I was going wrong and restructured my entire approach. His mentorship is honest, detailed, and genuinely impactful.</p>
-            </div>
-            <div class="glass testi-card fade-up d3">
-                <div class="testi-top">
-                    <div class="testi-avatar">SA</div>
-                    <div>
-                        <div class="testi-name">Samuel A.</div>
-                        <div class="testi-role">Online Entrepreneur, Enugu</div>
-                    </div>
-                </div>
-                <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                <p class="testi-body">The affiliate marketing training I received from Oluwatosin was hands down the most practical online business education I have ever had. Real strategies, real results. I now recommend him to everyone I know.</p>
-            </div>
+            <div class="testi-dots-nav" aria-label="Testimonial page navigation"></div>
         </div>
 
         <!-- <p style="margin-top:28px;font-size:12px;color:var(--text-muted);font-family:'Inter',sans-serif;text-align:center;">
@@ -1433,17 +2528,106 @@
 
     <div class="shimmer-line" aria-hidden="true"></div>
 
+    <!-- FAQ -->
+    <section id="faq" class="fade-up" aria-labelledby="faq-heading">
+        <div class="sec-label">FAQ</div>
+        <h2 class="sec-title" id="faq-heading">Common questions<br>about FHG</h2>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+                    What is FHG (Faith Heroic Generation)?
+                    <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-a" aria-hidden="true">
+                    <p>Faith Heroic Generation (FHG), also known as FHG Org Limited, is a Nigerian youth empowerment organisation that helps individuals build financial freedom through <strong>freelancing and network marketing</strong>. Founded in late 2015, FHG gives members access to multiple income streams and valuable digital skills. Since its founding, FHG has grown to over <strong>50,000 members</strong> across Nigeria and beyond.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+                    Is FHG free to join?
+                    <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-a" aria-hidden="true">
+                    <p>Yes, joining FHG is <strong>completely free</strong>. There are no registration or sign-up fees. Once you express interest, you will be invited to a free introductory session where you learn about the structure, what is expected, and the income opportunities available. All training resources and community tools are accessible at no cost.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+                    How does earning work in FHG?
+                    <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-a" aria-hidden="true">
+                    <p>Earning in FHG is built around <strong>network marketing and team building</strong>. You grow by bringing people into the business, supporting them to do the same, and earning commissions as your team expands. The bigger and more active your team, the higher your income. Coach Oluwatosin will guide you step by step on how to build and grow your team effectively from day one.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+                    How does Coach Oluwatosin support new FHG members?
+                    <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-a" aria-hidden="true">
+                    <p>Coach Oluwatosin provides <strong>personal one-on-one guidance</strong> from the moment you join, an active WhatsApp support group, regular training sessions, and consistent follow-up. For members who prefer physical interaction, he also runs <strong>in-person training sessions</strong> at his offices in Benin City, Ogbomoso, and Ede. Wherever you are, he makes sure you have the support you need to actually progress and build a real income.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+                    Can I join and build FHG from my city?
+                    <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-a" aria-hidden="true">
+                    <p>Absolutely. Coach Oluwatosin has active offices in <strong>Benin City, Ogbomoso, Ede</strong>, and other states, so if you want to come in physically and build from a specific location there is opportunity to do that. For those who prefer to work remotely, mentorship is also fully available online via WhatsApp and phone. Simply reach out to discuss and he will connect you to the right support structure in your city or state.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+                    How long before I start earning?
+                    <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-a" aria-hidden="true">
+                    <p>Most members that Coach Oluwatosin mentors begin seeing their <strong>first results within 30 to 90 days</strong>, depending on consistency and how quickly they apply the training. The mentorship gives you a clear, practical action plan from day one. The more consistent you are with building your team, the faster you will see your income grow.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
+                    Is FHG a legitimate, registered organisation?
+                    <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-a" aria-hidden="true">
+                    <p>Yes. FHG Org Limited is a <strong>registered organisation in Nigeria</strong> that has been operating since 2015. With over 50,000 members nationwide, a fully transparent structure, and free entry with no hidden charges, FHG has a strong and verifiable track record. Coach Oluwatosin has been an active and successful part of this organisation for years and stands fully behind its legitimacy.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="shimmer-line" aria-hidden="true"></div>
+
     <!-- QUOTE -->
     <div class="quote-section fade-up" aria-label="Personal quote">
         <div class="glass quote-box">
+            <div class="q-avatar-wrap">
+                <div class="q-avatar">
+                    <img src="images/tosco2.png" alt="Oluwatosin Adegboye" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                    <i class="fa-solid fa-user" style="display:none;"></i>
+                </div>
+            </div>
             <span class="q-mark" aria-hidden="true">&ldquo;</span>
-            <p class="q-text">I teach and mentor people how to activate productivity online and create income streams that truly change lives.</p>
-            <span class="q-author">Oluwatosin Adegboye</span>
+            <div class="q-divider" aria-hidden="true"><i class="fa-solid fa-star q-icon"></i></div>
+            <p class="q-text">I have been where you are — confused, unsure where to start, wondering if it is even possible. That journey changed my life and became my purpose. Today I teach and mentor people how to build real skills, activate their potential online, and create income streams that truly transform their lives.</p>
+            <div class="q-divider" style="margin-top:28px;margin-bottom:16px;" aria-hidden="true"><i class="fa-solid fa-star q-icon"></i></div>
+            <span class="q-author">— Oluwatosin Adegboye</span>
         </div>
     </div>
 
     <!-- CONNECT -->
-    <section class="fade-up" aria-labelledby="connect-heading">
+    <section id="connect" class="fade-up" aria-labelledby="connect-heading">
         <div class="sec-label">Connect</div>
         <h2 class="sec-title" id="connect-heading">Find me<br>across the internet</h2>
         <div class="connect-grid">
@@ -1451,31 +2635,37 @@
                 <div class="s-icon"><i class="fa-brands fa-x-twitter"></i></div>
                 <span class="s-name">Twitter / X</span>
                 <span class="s-handle">@coacholuwatosin</span>
+                <span class="s-count">Follow &rarr;</span>
             </a>
             <a href="https://facebook.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="glass social-card s-facebook" aria-label="Connect on Facebook">
                 <div class="s-icon"><i class="fa-brands fa-facebook-f"></i></div>
                 <span class="s-name">Facebook</span>
                 <span class="s-handle">coacholuwatosin</span>
+                <span class="s-count">Connect &rarr;</span>
             </a>
             <a href="https://www.linkedin.com/in/oluwatosin-adegboye" target="_blank" rel="noopener noreferrer" class="glass social-card s-linkedin" aria-label="Connect on LinkedIn">
                 <div class="s-icon"><i class="fa-brands fa-linkedin-in"></i></div>
                 <span class="s-name">LinkedIn</span>
                 <span class="s-handle">oluwatosin-adegboye</span>
+                <span class="s-count">Connect &rarr;</span>
             </a>
             <a href="https://bit.ly/OA-Youtube-Channel" target="_blank" rel="noopener noreferrer" class="glass social-card s-youtube" aria-label="Subscribe on YouTube">
                 <div class="s-icon"><i class="fa-brands fa-youtube"></i></div>
                 <span class="s-name">YouTube</span>
                 <span class="s-handle">Coach Oluwatosin</span>
+                <span class="s-count">Subscribe &rarr;</span>
             </a>
             <a href="https://bit.ly/OA-Connect" target="_blank" rel="noopener noreferrer" class="glass social-card s-whatsapp" aria-label="Connect on WhatsApp">
                 <div class="s-icon"><i class="fa-brands fa-whatsapp"></i></div>
                 <span class="s-name">WhatsApp</span>
                 <span class="s-handle">Connect with me</span>
+                <span class="s-count">Chat now &rarr;</span>
             </a>
             <a href="https://www.quora.com/profile/Oluwatosin-Adegboye-1" target="_blank" rel="noopener noreferrer" class="glass social-card s-quora" aria-label="Follow on Quora">
                 <div class="s-icon"><i class="fa-brands fa-quora"></i></div>
                 <span class="s-name">Quora</span>
                 <span class="s-handle">Oluwatosin Adegboye</span>
+                <span class="s-count">Follow &rarr;</span>
             </a>
         </div>
     </section>
@@ -1493,11 +2683,85 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2025 <span class="footer-name">Oluwatosin Adegboye</span> &nbsp;&middot;&nbsp; <a href="https://paultechnolog.com" target="_blank" rel="noopener noreferrer">PaulTechnolog</a></p>
-        <p>Fullstack Developer &middot; Graphic Designer &middot; Business Coach</p>
+        <div class="footer-inner">
+            <div class="footer-logo">Oluwatosin Adegboye</div>
+            <p class="footer-tagline">Fullstack Developer &middot; Graphic Designer &middot; Business Coach</p>
+
+            <div class="footer-socials" aria-label="Social media links">
+                <a href="https://twitter.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="https://facebook.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/oluwatosin-adegboye" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://bit.ly/OA-Youtube-Channel" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://bit.ly/OA-Connect" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+
+            <p class="footer-copy">&copy; 2025 <span class="footer-name">Oluwatosin Adegboye</span><span class="footer-dot">&middot;</span><a href="https://paultechnolog.com" target="_blank" rel="noopener noreferrer">PaulTechnolog</a></p>
+            <p class="footer-copy" style="margin-top:6px;">Built with passion &middot; Designed to inspire</p>
+        </div>
     </footer>
 
 </div><!-- end .content -->
+
+<!-- ═══ CONTACT MODAL ══════════════════════════════════════ -->
+<div class="modal-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-box">
+        <button class="modal-close" id="modal-close" aria-label="Close contact form"><i class="fa-solid fa-xmark"></i></button>
+
+        <!-- Step 1: Form -->
+        <div class="modal-step" id="modal-step-1">
+            <div class="modal-title" id="modal-title">Send Me a Message</div>
+            <p class="modal-sub">Fill in your details below. Your message stays private — nothing is stored on any server.</p>
+            <div class="form-row">
+                <div>
+                    <label class="form-label" for="cf-name">Full Name</label>
+                    <input class="form-input" id="cf-name" type="text" placeholder="Your full name" autocomplete="name">
+                </div>
+                <div>
+                    <label class="form-label" for="cf-phone">Phone / WhatsApp</label>
+                    <input class="form-input" id="cf-phone" type="tel" placeholder="+234 xxx xxx xxxx" autocomplete="tel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="cf-email">Email Address</label>
+                <input class="form-input" id="cf-email" type="email" placeholder="your@email.com" autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="cf-subject">Subject</label>
+                <input class="form-input" id="cf-subject" type="text" placeholder="e.g. I want to join FHG, Hire for a project…">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="cf-message">Your Message</label>
+                <textarea class="form-input" id="cf-message" placeholder="Write your message here…"></textarea>
+            </div>
+            <button class="btn-primary" id="modal-next" style="width:100%;justify-content:center;margin-top:4px;">
+                <i class="fa-solid fa-arrow-right"></i><span>Continue</span>
+            </button>
+            <div class="modal-privacy"><i class="fa-solid fa-lock"></i> Your data never leaves your device — 100% private</div>
+        </div>
+
+        <!-- Step 2: Choose channel -->
+        <div class="modal-step hidden" id="modal-step-2">
+            <div class="modal-title">How do you want to send it?</div>
+            <p class="modal-sub">Your message has been prepared. Choose where to send it — you'll be taken straight there with everything pre-filled.</p>
+            <div class="modal-preview" id="modal-preview" aria-live="polite"></div>
+            <div class="choice-grid">
+                <a class="choice-btn wa" id="send-whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="Send via WhatsApp">
+                    <span class="choice-icon"><i class="fa-brands fa-whatsapp"></i></span>
+                    <span class="choice-label">WhatsApp</span>
+                    <span class="choice-sub">Opens WhatsApp with your message ready</span>
+                </a>
+                <a class="choice-btn em" id="send-email" href="#" aria-label="Send via Email">
+                    <span class="choice-icon"><i class="fa-solid fa-envelope"></i></span>
+                    <span class="choice-label">Email</span>
+                    <span class="choice-sub">Opens your email app pre-filled</span>
+                </a>
+            </div>
+            <button class="btn-outline" id="modal-back" style="width:100%;justify-content:center;margin-top:16px;">
+                <i class="fa-solid fa-arrow-left"></i><span>Edit message</span>
+            </button>
+        </div>
+    </div>
+</div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════
@@ -1645,7 +2909,7 @@ if (!isTouch) {
     })();
 
     // Expand ring on hoverable elements
-    const hoverEls = 'a, button, .pill, .svc-card, .social-card, .testi-card, .dot, .tab-btn';
+    const hoverEls = 'a, button, .pill, .svc-card, .social-card, .testi-card, .dot, .tab-btn, .testi-nav-btn, .testi-dot-nav';
     document.addEventListener('mouseover', e => {
         if (e.target.closest(hoverEls)) curRing.classList.add('hover');
     });
@@ -1708,8 +2972,94 @@ const statsObs = new IntersectionObserver(entries => {
 if (statEls.length) statsObs.observe(statEls[0].closest('section'));
 
 /* ═══════════════════════════════════════════════════════════
-   TESTIMONIAL TABS
+   TESTIMONIAL TABS + CAROUSEL
 ═══════════════════════════════════════════════════════════ */
+
+// --- Carousel factory ---
+function initCarousel(panel) {
+    const wrap   = panel.querySelector('.testi-carousel-wrap');
+    const track  = panel.querySelector('.testi-track');
+    const cards  = track.querySelectorAll('.testi-card');
+    const prevBtn = wrap.querySelector('.testi-nav-btn.prev');
+    const nextBtn = wrap.querySelector('.testi-nav-btn.next');
+    const dotsEl  = panel.querySelector('.testi-dots-nav');
+    let pos = 0;
+
+    function perView() {
+        if (window.innerWidth <= 560) return 1;
+        if (window.innerWidth <= 860) return 2;
+        return 3;
+    }
+    function maxPos() { return Math.max(0, cards.length - perView()); }
+
+    function update() {
+        const gap  = 20;
+        const cardW = cards[0].offsetWidth + gap;
+        track.style.transform = `translateX(-${pos * cardW}px)`;
+        prevBtn.disabled = pos === 0;
+        nextBtn.disabled = pos >= maxPos();
+        dotsEl.querySelectorAll('.testi-dot-nav').forEach((d, i) => {
+            d.classList.toggle('active', i === pos);
+        });
+    }
+
+    function buildDots() {
+        dotsEl.innerHTML = '';
+        const total = maxPos() + 1;
+        for (let i = 0; i < total; i++) {
+            const d = document.createElement('button');
+            d.className = 'testi-dot-nav' + (i === 0 ? ' active' : '');
+            d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            d.addEventListener('click', () => { pos = i; update(); });
+            dotsEl.appendChild(d);
+        }
+    }
+
+    prevBtn.addEventListener('click', () => { if (pos > 0) { pos--; update(); } });
+    nextBtn.addEventListener('click', () => { if (pos < maxPos()) { pos++; update(); } });
+
+    // Touch/swipe support
+    let tx = 0;
+    track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+        const diff = tx - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 44) {
+            if (diff > 0 && pos < maxPos()) { pos++; }
+            else if (diff < 0 && pos > 0) { pos--; }
+            update();
+        }
+    });
+
+    // Auto-advance every 6s
+    let autoTimer = setInterval(() => {
+        pos = pos >= maxPos() ? 0 : pos + 1;
+        update();
+    }, 6000);
+    wrap.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    wrap.addEventListener('mouseleave', () => {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => { pos = pos >= maxPos() ? 0 : pos + 1; update(); }, 6000);
+    });
+
+    buildDots();
+    update();
+
+    window.addEventListener('resize', () => {
+        pos = Math.min(pos, maxPos());
+        buildDots();
+        update();
+    });
+
+    return { reset() { pos = 0; buildDots(); update(); } };
+}
+
+// Init both panels
+const carousels = {};
+document.querySelectorAll('.tab-panel').forEach(panel => {
+    carousels[panel.id] = initCarousel(panel);
+});
+
+// Tab switching
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         document.querySelectorAll('.tab-btn').forEach(b => {
@@ -1720,11 +3070,8 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         this.setAttribute('aria-selected','true');
         const panel = document.getElementById('tab-' + this.dataset.tab);
         panel.classList.add('active');
-        // Re-trigger fade-ups inside the newly visible panel
-        panel.querySelectorAll('.fade-up').forEach(el => {
-            el.classList.remove('visible');
-            setTimeout(() => el.classList.add('visible'), 60);
-        });
+        // Reset carousel to first slide when switching tabs
+        if (carousels[panel.id]) carousels[panel.id].reset();
     });
 });
 
@@ -1815,6 +3162,165 @@ document.querySelectorAll('.btn-primary, .btn-outline').forEach(btn => {
         });
         this.appendChild(r);
         setTimeout(() => r.remove(), 650);
+    });
+});
+
+/* ═══════════════════════════════════════════════════════════
+   SKILLS PROGRESS BARS — animate on scroll into view
+═══════════════════════════════════════════════════════════ */
+let skillsDone = false;
+const skillsObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !skillsDone) {
+        skillsDone = true;
+        document.querySelectorAll('.skill-fill').forEach(bar => {
+            bar.style.width = bar.dataset.w + '%';
+        });
+        skillsObs.disconnect();
+    }
+}, { threshold: 0.15 });
+const skillsSec = document.getElementById('skills');
+if (skillsSec) skillsObs.observe(skillsSec);
+
+/* ═══════════════════════════════════════════════════════════
+   NAV DROPDOWN MENU
+═══════════════════════════════════════════════════════════ */
+const navMenuBtn  = document.getElementById('nav-menu-btn');
+const navDropdown = document.getElementById('nav-dropdown');
+
+navMenuBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = navDropdown.classList.toggle('open');
+    navMenuBtn.setAttribute('aria-expanded', isOpen);
+    navMenuBtn.querySelector('i').className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+});
+document.addEventListener('click', e => {
+    if (!navDropdown.contains(e.target) && e.target !== navMenuBtn) {
+        navDropdown.classList.remove('open');
+        navMenuBtn.setAttribute('aria-expanded', 'false');
+        navMenuBtn.querySelector('i').className = 'fa-solid fa-bars';
+    }
+});
+// Close nav on link click (smooth scroll)
+navDropdown.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+    link.addEventListener('click', () => {
+        navDropdown.classList.remove('open');
+        navMenuBtn.setAttribute('aria-expanded', 'false');
+        navMenuBtn.querySelector('i').className = 'fa-solid fa-bars';
+    });
+});
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT MODAL
+═══════════════════════════════════════════════════════════ */
+const modal       = document.getElementById('contact-modal');
+const modalClose  = document.getElementById('modal-close');
+const step1       = document.getElementById('modal-step-1');
+const step2       = document.getElementById('modal-step-2');
+const modalNext   = document.getElementById('modal-next');
+const modalBack   = document.getElementById('modal-back');
+const preview     = document.getElementById('modal-preview');
+const sendWA      = document.getElementById('send-whatsapp');
+const sendEM      = document.getElementById('send-email');
+const WA_NUMBER   = '2347047920264';
+const EMAIL_TO    = 'adegboyeoluwatosin2@gmail.com';
+
+function openModal() {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('cf-name').focus(), 80);
+}
+function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
+function goStep(n) {
+    step1.classList.toggle('hidden', n !== 1);
+    step2.classList.toggle('hidden', n !== 2);
+}
+
+// Open triggers
+document.getElementById('open-contact-nav').addEventListener('click', () => {
+    navDropdown.classList.remove('open');
+    navMenuBtn.querySelector('i').className = 'fa-solid fa-bars';
+    openModal();
+});
+document.getElementById('learn-earn-btn').addEventListener('click', openModal);
+modalClose.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+modalBack.addEventListener('click', () => goStep(1));
+
+modalNext.addEventListener('click', () => {
+    const name    = document.getElementById('cf-name').value.trim();
+    const phone   = document.getElementById('cf-phone').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const subject = document.getElementById('cf-subject').value.trim();
+    const message = document.getElementById('cf-message').value.trim();
+
+    if (!name || !message) {
+        alert('Please enter at least your name and message.');
+        return;
+    }
+
+    // Build preview
+    preview.innerHTML =
+        `<span class="prev-label">Message Preview</span>` +
+        `<strong>From:</strong> ${name}${phone ? ' · ' + phone : ''}${email ? '<br><strong>Email:</strong> ' + email : ''}<br>` +
+        `${subject ? '<strong>Subject:</strong> ' + subject + '<br>' : ''}` +
+        `<strong>Message:</strong> ${message}`;
+
+    // Build WhatsApp text
+    const waText = `Hello Coach Oluwatosin 👋\n\n*Name:* ${name}\n${phone ? '*Phone:* ' + phone + '\n' : ''}${email ? '*Email:* ' + email + '\n' : ''}${subject ? '*Subject:* ' + subject + '\n' : ''}\n*Message:*\n${message}`;
+    sendWA.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waText)}`;
+
+    // Build Email
+    const emailSubj = subject || `Message from ${name}`;
+    const emailBody = `Hello Coach Oluwatosin,\n\nMy name is ${name}.${phone ? '\nPhone: ' + phone : ''}${email ? '\nEmail: ' + email : ''}\n\n${message}\n\nSent from your website.`;
+    sendEM.href = `mailto:${EMAIL_TO}?subject=${encodeURIComponent(emailSubj)}&body=${encodeURIComponent(emailBody)}`;
+
+    goStep(2);
+});
+
+/* ═══════════════════════════════════════════════════════════
+   CODE PROTECTION
+═══════════════════════════════════════════════════════════ */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, Ctrl+U, Ctrl+S
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I','i','J','j','C','c'].includes(e.key)) ||
+        (e.ctrlKey && ['u','U','s','S'].includes(e.key))
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   FAQ ACCORDION
+═══════════════════════════════════════════════════════════ */
+document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+        const item   = q.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        // Close all others
+        document.querySelectorAll('.faq-item.open').forEach(i => {
+            i.classList.remove('open');
+            i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+            i.querySelector('.faq-a').setAttribute('aria-hidden', 'true');
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            q.setAttribute('aria-expanded', 'true');
+            item.querySelector('.faq-a').setAttribute('aria-hidden', 'false');
+        }
+    });
+    // Keyboard support
+    q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
     });
 });
 </script>

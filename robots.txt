@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oluwatosinadegboye.com/sitemap.xml

@@ -12,6 +12,7 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <link rel="canonical" href="https://oluwatosinadegboye.com/">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <link rel="manifest" href="/manifest.json">
 
     <!-- ═══ OPEN GRAPH ═════════════════════════════════════════════ -->
     <meta property="og:type" content="profile">
@@ -377,7 +378,22 @@
         border-radius: 30px;
         overflow: hidden;
         position: relative;
-        box-shadow: 0 40px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(0,198,255,.09);
+        box-shadow:
+            0 40px 90px rgba(0,0,0,.55),
+            0 0 0 1px rgba(0,198,255,.14),
+            0 0 40px rgba(0,133,255,.12) inset;
+    }
+    /* Decorative corner accents */
+    .slider-frame::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 30px;
+        background:
+            linear-gradient(135deg, rgba(0,198,255,.18) 0%, transparent 28%) top left / 60% 60% no-repeat,
+            linear-gradient(315deg, rgba(0,133,255,.14) 0%, transparent 28%) bottom right / 60% 60% no-repeat;
+        pointer-events: none;
+        z-index: 2;
     }
     .slide {
         position: absolute;
@@ -431,19 +447,20 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 3;
-        background: rgba(4,9,26,.82);
-        backdrop-filter: blur(16px);
-        border: 1px solid rgba(0,198,255,.18);
+        background: rgba(0,9,30,.88);
+        backdrop-filter: blur(20px) saturate(1.4);
+        border: 1px solid rgba(0,198,255,.28);
         border-radius: 50px;
-        padding: 8px 18px;
+        padding: 9px 20px;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         color: var(--sky);
         white-space: nowrap;
-        letter-spacing: .6px;
+        letter-spacing: .8px;
         display: flex;
         align-items: center;
         gap: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,.4), 0 0 0 1px rgba(0,198,255,.08) inset;
     }
     .dot-live {
         width: 7px; height: 7px;
@@ -654,14 +671,15 @@
         background: rgba(0,133,255,.07);
         border: 1px solid rgba(0,133,255,.16);
         border-radius: 50px;
-        padding: 8px 18px;
+        padding: 9px 20px;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 600;
         color: var(--sky);
         transition: all .3s;
         cursor: default;
+        letter-spacing: .2px;
     }
-    .pill:hover { background: rgba(0,133,255,.16); border-color: var(--blue); transform: translateY(-2px); }
+    .pill:hover { background: rgba(0,133,255,.16); border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,133,255,.18); }
 
     /* ═══════════════════════════════════════════════════════════════
        SERVICES
@@ -672,6 +690,7 @@
         border-radius: 22px;
         transition: transform .4s ease, box-shadow .4s ease, background .3s, border-color .3s;
         cursor: default;
+        display: flex; flex-direction: column;
     }
     .svc-card::after {
         content: '';
@@ -704,7 +723,18 @@
     }
     .svc-card:hover .svc-icon { transform: scale(1.1) rotate(-5deg); }
     .svc-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-    .svc-desc { font-size: 13px; line-height: 1.72; color: var(--text-dim); font-family: 'Inter', sans-serif; }
+    .svc-desc { font-size: 13px; line-height: 1.72; color: var(--text-dim); font-family: 'Inter', sans-serif; margin-bottom: 20px; }
+    .svc-cta {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 12px; font-weight: 700; letter-spacing: .4px;
+        color: var(--sky); background: none; border: none;
+        cursor: pointer; padding: 0; margin-top: auto;
+        transition: gap .25s, opacity .25s;
+        font-family: 'Space Grotesk', sans-serif;
+    }
+    .svc-cta i { font-size: 10px; transition: transform .25s; }
+    .svc-cta:hover { opacity: .75; gap: 10px; }
+    .svc-cta:hover i { transform: translateX(3px); }
 
     /* ═══════════════════════════════════════════════════════════════
        PAULTECHNOLOG BRAND
@@ -920,44 +950,66 @@
     ═══════════════════════════════════════════════════════════════ */
     .splash {
         position: fixed; inset: 0; z-index: 9999;
-        background: #04091a;
+        background: radial-gradient(ellipse at 50% 40%, #06122b 0%, #04091a 65%);
         display: flex; flex-direction: column;
-        align-items: center; justify-content: center; gap: 22px;
-        transition: opacity .7s ease, visibility .7s ease;
+        align-items: center; justify-content: center; gap: 20px;
+        transition: opacity .75s ease, visibility .75s ease;
     }
     .splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
-    .splash-ring-wrap { position: relative; width: 108px; height: 108px; }
+
+    /* Outer spinning ring */
+    .splash-ring-wrap { position: relative; width: 120px; height: 120px; }
     .splash-ring {
-        position: absolute; inset: -3px; border-radius: 50%;
-        background: conic-gradient(from 0deg, #0085ff, #00c6ff, #38bdf8, #00c6ff, #0085ff);
-        animation: spin 2s linear infinite;
+        position: absolute; inset: -4px; border-radius: 36px;
+        background: conic-gradient(from 0deg, #0085ff 0%, #00c6ff 30%, transparent 55%, transparent 70%, #0085ff 100%);
+        animation: spin 2.2s linear infinite;
     }
     .splash-ring::after {
-        content: ''; position: absolute; inset: 3px;
-        border-radius: 50%; background: #04091a;
+        content: ''; position: absolute; inset: 4px;
+        border-radius: 30px; background: #04091a;
     }
+    /* Branded OA square inside */
     .splash-initials {
-        position: absolute; inset: 4px; border-radius: 50%;
-        background: linear-gradient(145deg, #0a1a3a, #060f28);
+        position: absolute; inset: 8px; border-radius: 26px; z-index: 2;
+        background: linear-gradient(135deg, #0a1a3a 0%, #061228 100%);
+        border: 1px solid rgba(0,198,255,.14);
         display: flex; align-items: center; justify-content: center;
-        font-size: 34px; font-weight: 800; z-index: 2;
+        font-size: 36px; font-weight: 900; letter-spacing: -1px;
         background: linear-gradient(135deg, #0085ff, #00c6ff);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
+    /* Name + tagline */
+    .splash-texts { display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .splash-name {
-        font-size: 12px; font-weight: 700; letter-spacing: 4px;
+        font-size: 13px; font-weight: 800; letter-spacing: 4.5px;
         text-transform: uppercase;
-        background: linear-gradient(135deg, #ffffff, #00c6ff);
+        background: linear-gradient(135deg, #ffffff 0%, #b8e2ff 60%, #00c6ff 100%);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .splash-tagline {
+        font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+        text-transform: uppercase; color: rgba(0,198,255,.45);
+        font-family: 'Inter', sans-serif;
         animation: breath .9s ease-in-out infinite alternate;
     }
-    @keyframes breath { from { opacity:.45; } to { opacity:1; } }
-    .splash-loader { width: 130px; height: 2px; background: rgba(0,198,255,.15); border-radius: 2px; overflow: hidden; }
+    @keyframes breath { from { opacity:.35; } to { opacity:.8; } }
+    /* Progress bar */
+    .splash-loader { width: 140px; height: 2px; background: rgba(0,198,255,.12); border-radius: 2px; overflow: hidden; margin-top: 4px; }
     .splash-loader-fill {
-        height: 100%; background: linear-gradient(90deg, #0085ff, #00c6ff); border-radius: 2px;
-        animation: ld-fill 1.6s cubic-bezier(.4,0,.2,1) forwards;
+        height: 100%; background: linear-gradient(90deg, #0085ff, #00c6ff, #38bdf8); border-radius: 2px;
+        animation: ld-fill 1.8s cubic-bezier(.4,0,.2,1) forwards;
     }
     @keyframes ld-fill { from { width:0; } to { width:100%; } }
+    /* Three dots below bar */
+    .splash-dots { display: flex; gap: 6px; margin-top: -6px; }
+    .splash-dot {
+        width: 4px; height: 4px; border-radius: 50%;
+        background: rgba(0,198,255,.4);
+        animation: dot-blink 1.2s ease-in-out infinite;
+    }
+    .splash-dot:nth-child(2) { animation-delay: .2s; }
+    .splash-dot:nth-child(3) { animation-delay: .4s; }
+    @keyframes dot-blink { 0%,80%,100% { opacity:.25; transform: scale(.8); } 40% { opacity:1; transform: scale(1); } }
 
     /* ═══════════════════════════════════════════════════════════════
        SCROLL PROGRESS BAR
@@ -1180,16 +1232,40 @@
     ═══════════════════════════════════════════════════════════════ */
     .slider-glow {
         position: absolute;
-        inset: -24px;
-        border-radius: 44px;
-        background: radial-gradient(ellipse, rgba(0,133,255,.22) 0%, transparent 68%);
+        inset: -36px;
+        border-radius: 52px;
+        background: radial-gradient(ellipse at 50% 60%, rgba(0,133,255,.32) 0%, rgba(0,198,255,.10) 45%, transparent 70%);
         pointer-events: none;
         z-index: -1;
         animation: glow-pulse 4s ease-in-out infinite;
     }
     @keyframes glow-pulse {
-        0%,100% { opacity:.7; transform: scale(1); }
-        50%      { opacity:1; transform: scale(1.04); }
+        0%,100% { opacity:.65; transform: scale(1); }
+        50%      { opacity:1;   transform: scale(1.06); }
+    }
+    /* Floating stat chip on the image card */
+    .slider-stat {
+        position: absolute;
+        top: 24px; right: -18px;
+        z-index: 4;
+        background: rgba(4,9,26,.86);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0,198,255,.22);
+        border-radius: 50px;
+        padding: 8px 16px 8px 12px;
+        display: flex; align-items: center; gap: 8px;
+        font-size: 11.5px; font-weight: 700;
+        color: var(--text);
+        white-space: nowrap;
+        box-shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+    .slider-stat i { color: var(--sky); font-size: 13px; }
+    .slider-stat-num { color: var(--sky); font-size: 14px; font-weight: 800; }
+    [data-theme="light"] .slider-stat {
+        background: rgba(255,255,255,.92);
+        border-color: rgba(0,133,255,.2);
+        box-shadow: 0 6px 20px rgba(0,80,200,.15);
+        color: #04101e;
     }
     .hero-chips {
         display: flex;
@@ -1486,57 +1562,78 @@
     .about-journey { display: flex; flex-direction: column; gap: 0; }
     .about-chapter {
         position: relative;
-        padding-left: 54px;
-        padding-bottom: 32px;
+        padding-left: 62px;
+        padding-bottom: 36px;
+        padding-top: 4px;
     }
+    /* Timeline connector line */
     .about-chapter::before {
         content: '';
         position: absolute;
-        left: 13px; top: 30px; bottom: 0;
-        width: 1px;
-        background: linear-gradient(180deg, rgba(0,198,255,.25) 0%, transparent 100%);
+        left: 15px; top: 34px; bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, var(--chapter-clr, rgba(0,198,255,.35)) 0%, transparent 100%);
+        border-radius: 2px;
     }
     .about-chapter:last-child { padding-bottom: 0; }
     .about-chapter:last-child::before { display: none; }
+
+    /* Numbered marker */
     .about-chapter-marker {
         position: absolute;
-        left: 0; top: 0;
-        width: 28px; height: 28px;
+        left: 0; top: 2px;
+        width: 32px; height: 32px;
         border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-size: 11px; font-weight: 800; color: #fff;
+        font-size: 12px; font-weight: 900; color: #fff;
         flex-shrink: 0;
+        box-shadow: 0 4px 16px var(--chapter-shadow, rgba(0,133,255,.4));
     }
+
+    /* Chapter header label */
     .about-chapter-label {
-        font-size: 10px; font-weight: 700;
+        font-size: 10px; font-weight: 800;
         letter-spacing: 2.5px; text-transform: uppercase;
-        color: var(--sky); opacity: .7;
-        margin-bottom: 12px;
-        display: flex; align-items: center; gap: 8px;
+        color: var(--sky);
+        margin-bottom: 14px;
+        display: flex; align-items: center; gap: 10px;
+        opacity: .9;
     }
     .about-chapter-label::after {
         content: '';
-        flex: 1; max-width: 40px; height: 1px;
-        background: rgba(0,198,255,.3);
+        flex: 1; max-width: 48px; height: 1px;
+        background: linear-gradient(90deg, rgba(0,198,255,.4), transparent);
     }
+
+    /* Callout highlight block */
     .about-callout {
-        background: linear-gradient(135deg, rgba(0,133,255,.09), rgba(0,198,255,.05));
-        border-left: 3px solid rgba(0,198,255,.5);
+        background: linear-gradient(135deg, rgba(0,133,255,.10), rgba(0,198,255,.05));
+        border-left: 3px solid rgba(0,198,255,.55);
         border-radius: 0 14px 14px 0;
         padding: 18px 22px;
         font-style: italic;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        line-height: 1.75;
     }
-    .about-callout.about-text { border-left-color: rgba(0,198,255,.5) !important; }
+    .about-callout.about-text { border-left-color: rgba(0,198,255,.55) !important; }
+
+    /* Mission block */
     .about-mission {
-        background: linear-gradient(135deg, rgba(0,133,255,.06), rgba(0,198,255,.03));
-        border-radius: 14px; padding: 18px 22px;
-        margin-bottom: 10px;
+        background: linear-gradient(135deg, rgba(0,133,255,.07), rgba(0,198,255,.03));
+        border-radius: 14px;
+        padding: 18px 22px;
+        margin-bottom: 12px;
+        line-height: 1.75;
     }
     .about-intro-text {
         font-size: 16px !important;
-        line-height: 1.88 !important;
+        line-height: 1.9 !important;
     }
+    /* Per-chapter color tokens */
+    .about-chapter:nth-child(1) { --chapter-clr: rgba(0,133,255,.4); --chapter-shadow: rgba(0,133,255,.5); }
+    .about-chapter:nth-child(2) { --chapter-clr: rgba(139,92,246,.4); --chapter-shadow: rgba(139,92,246,.5); }
+    .about-chapter:nth-child(3) { --chapter-clr: rgba(34,197,94,.4);  --chapter-shadow: rgba(34,197,94,.5);  }
+    .about-chapter:nth-child(4) { --chapter-clr: rgba(245,158,11,.4); --chapter-shadow: rgba(245,158,11,.5); }
 
     /* ═══════════════════════════════════════════════════════════════
        PAULTECHNOLOG REDESIGN
@@ -1749,6 +1846,26 @@
     [data-theme="light"] .stat-label { color: rgba(4,16,30,.55); }
     [data-theme="light"] .orb { opacity: .12 !important; }
     [data-theme="light"] .grid-overlay { opacity: .6; }
+    [data-theme="light"] .slider-badge {
+        background: rgba(255,255,255,.90);
+        border-color: rgba(0,133,255,.25);
+        color: var(--blue);
+        box-shadow: 0 4px 16px rgba(0,80,200,.14);
+    }
+    [data-theme="light"] .dot-live { box-shadow: 0 0 0 3px rgba(37,211,102,.2); }
+
+    /* About card extra padding + pills tweak */
+    .about-card { padding: 48px 52px 44px; }
+    .divider { margin: 32px 0; }
+
+    /* Hide stat chip on mobile where it would overflow */
+    @media (max-width: 880px) {
+        .slider-stat { display: none; }
+    }
+    @media (max-width: 640px) {
+        .about-card { padding: 28px 20px 24px; }
+        .about-chapter { padding-left: 48px; }
+    }
 
     /* ═══════════════════════════════════════════════════════════════
        CODE PROTECTION
@@ -2005,8 +2122,16 @@
         <div class="splash-ring"></div>
         <div class="splash-initials">OA</div>
     </div>
-    <span class="splash-name">Oluwatosin Adegboye</span>
+    <div class="splash-texts">
+        <span class="splash-name">Oluwatosin Adegboye</span>
+        <span class="splash-tagline">Developer &middot; Designer &middot; Coach</span>
+    </div>
     <div class="splash-loader"><div class="splash-loader-fill"></div></div>
+    <div class="splash-dots">
+        <span class="splash-dot"></span>
+        <span class="splash-dot"></span>
+        <span class="splash-dot"></span>
+    </div>
 </div>
 
 <!-- ═══ PROGRESS BAR ══════════════════════════════════════════════ -->
@@ -2075,7 +2200,7 @@
             <!-- Image Slider -->
             <div class="slider-wrap">
                 <div class="slider-glow" aria-hidden="true"></div>
-                <div class="slider-frame glass">
+<div class="slider-frame glass">
                     <div class="slide active" data-slide="0">
                         <img src="images/Oluwatosin.jpg" alt="Oluwatosin Adegboye professional photo 1" loading="eager" width="320" height="427" decoding="async">
                     </div>
@@ -2338,6 +2463,7 @@
                 <div class="svc-divider" style="color:#38bdf8"></div>
                 <div class="svc-title">Fullstack Web Dev</div>
                 <p class="svc-desc">I build modern websites that look professional, load fast, and give visitors a seamless experience. Each site is designed to help you grow your business, attract clients, and stand out online.</p>
+                <button class="svc-cta open-modal-btn" type="button">Get a quote <i class="fa-solid fa-arrow-right"></i></button>
             </div>
             <div class="glass svc-card fade-up d2">
                 <span class="svc-num" aria-hidden="true">02</span>
@@ -2345,6 +2471,7 @@
                 <div class="svc-divider" style="color:#a78bfa"></div>
                 <div class="svc-title">Mobile App Dev</div>
                 <p class="svc-desc">I develop cross-platform mobile apps that feel intuitive, run smoothly on every device, and help you achieve real results, whether it’s engagement, sales, or productivity.</p>
+                <button class="svc-cta open-modal-btn" type="button">Get a quote <i class="fa-solid fa-arrow-right"></i></button>
             </div>
             <div class="glass svc-card fade-up d3">
                 <span class="svc-num" aria-hidden="true">03</span>
@@ -2352,6 +2479,7 @@
                 <div class="svc-divider" style="color:#4ade80"></div>
                 <div class="svc-title">Graphic Design</div>
                 <p class="svc-desc">I craft brand identities and marketing visuals that don’t just look good, they capture attention, tell your purpose, and inspire your targeted audience to action.</p>
+                <button class="svc-cta open-modal-btn" type="button">Book a session <i class="fa-solid fa-arrow-right"></i></button>
             </div>
             <div class="glass svc-card fade-up">
                 <span class="svc-num" aria-hidden="true">04</span>
@@ -2359,6 +2487,7 @@
                 <div class="svc-divider" style="color:#fb923c"></div>
                 <div class="svc-title">MLM &amp; Business Coach</div>
                 <p class="svc-desc">I mentor entrepreneurs to create sustainable online income by teaching practical strategies, proven systems, and actionable steps that turn skills into real earnings.</p>
+                <button class="svc-cta open-modal-btn" type="button">Book a session <i class="fa-solid fa-arrow-right"></i></button>
             </div>
         </div>
     </section>
@@ -2437,7 +2566,7 @@
                     <div class="stat-label">Years of Experience</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-num" data-target="428" data-suffix="+">0</div>
+                    <div class="stat-num" data-target="278" data-suffix="+">0</div>
                     <div class="stat-label">People Mentored</div>
                 </div>
                 <div class="stat-item">
@@ -3134,7 +3263,7 @@ function animateStats() {
 // Trigger when stats section enters view
 const statsObs = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) { animateStats(); statsObs.disconnect(); }
-}, { threshold: .3 });
+}, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
 if (statEls.length) statsObs.observe(statEls[0].closest('section'));
 
 /* ═══════════════════════════════════════════════════════════
@@ -3416,6 +3545,7 @@ document.getElementById('open-contact-nav').addEventListener('click', () => {
     openModal();
 });
 document.getElementById('learn-earn-btn').addEventListener('click', openModal);
+document.querySelectorAll('.open-modal-btn').forEach(btn => btn.addEventListener('click', openModal));
 modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });

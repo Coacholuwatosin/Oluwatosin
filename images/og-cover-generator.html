@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG Cover Generator — Screenshot at exactly 1200x630</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1200px; height:630px; overflow:hidden; background:#04091a; font-family:'Segoe UI',Arial,sans-serif; }
+
+/* Background gradient */
+.bg {
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0,133,255,.28) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,198,255,.15) 0%, transparent 45%),
+                #04091a;
+}
+/* Grid overlay */
+.grid {
+    position:absolute; inset:0;
+    background-image: linear-gradient(rgba(0,133,255,.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,133,255,.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+/* Main card */
+.card {
+    position:absolute;
+    inset: 40px;
+    border: 1px solid rgba(0,198,255,.14);
+    border-radius: 32px;
+    background: rgba(255,255,255,.025);
+    backdrop-filter: blur(20px);
+    display:flex; align-items:center; padding: 56px 72px; gap:64px;
+}
+/* Left: avatar badge */
+.avatar {
+    width:180px; height:180px; border-radius:28px; flex-shrink:0;
+    background: linear-gradient(135deg, #0085ff 0%, #00c6ff 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:72px; font-weight:900; color:#fff;
+    letter-spacing:-3px;
+    box-shadow: 0 24px 64px rgba(0,133,255,.45);
+}
+/* Right: text */
+.info { flex:1; }
+.badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background: rgba(0,133,255,.12); border:1px solid rgba(0,198,255,.25);
+    border-radius:50px; padding:6px 18px;
+    font-size:12px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase;
+    color:#00c6ff; margin-bottom:22px;
+}
+.dot { width:7px; height:7px; border-radius:50%; background:#25d366; }
+h1 {
+    font-size:54px; font-weight:900; line-height:1.05; letter-spacing:-2px;
+    color:#fff; margin-bottom:14px;
+}
+h1 span {
+    background: linear-gradient(135deg, #fff 0%, #b8e2ff 40%, #0085ff 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.tagline {
+    font-size:17px; color:rgba(240,248,255,.55); margin-bottom:28px; line-height:1.5;
+}
+.tags { display:flex; gap:10px; flex-wrap:wrap; }
+.tag {
+    background: rgba(0,133,255,.1); border:1px solid rgba(0,198,255,.2);
+    border-radius:8px; padding:6px 14px;
+    font-size:13px; font-weight:600; color:rgba(0,198,255,.85);
+}
+/* Bottom strip */
+.url {
+    position:absolute; bottom:56px; right:72px;
+    font-size:13px; color:rgba(0,198,255,.45); letter-spacing:1px;
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid"></div>
+<div class="card">
+    <div class="avatar">OA</div>
+    <div class="info">
+        <div class="badge"><span class="dot"></span> Available for work</div>
+        <h1><span>Oluwatosin</span><br>Adegboye</h1>
+        <p class="tagline">Fullstack Developer &nbsp;·&nbsp; Graphic Designer &nbsp;·&nbsp; Business Coach</p>
+        <div class="tags">
+            <span class="tag">Web Dev</span>
+            <span class="tag">Mobile Apps</span>
+            <span class="tag">Design</span>
+            <span class="tag">MLM Coach</span>
+            <span class="tag">PaulTechnolog</span>
+        </div>
+    </div>
+</div>
+<span class="url">oluwatosinadegboye.com</span>
+</body>
+</html>
+<!--
+  HOW TO USE:
+  1. Open this file in Chrome/Edge
+  2. Set zoom to 100% (Ctrl+0)
+  3. Press F12, go to Device Toolbar (Ctrl+Shift+M)
+  4. Set custom size: 1200 x 630
+  5. Right-click on page > "Capture screenshot"
+  6. Save the screenshot as "og-cover.jpg" in this images/ folder
+  7. Delete this generator file before deploying
+-->

@@ -1,0 +1,21 @@
+{
+  "name": "Oluwatosin Adegboye",
+  "short_name": "Coach Tosin",
+  "description": "Fullstack developer, graphic designer, and business coach. Founder of PaulTechnolog.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04091a",
+  "theme_color": "#0085ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%230085ff'/><stop offset='100%25' stop-color='%2300c6ff'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='68' font-family='Arial Black' font-weight='900' font-size='52' text-anchor='middle' fill='white'>OA</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "business", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

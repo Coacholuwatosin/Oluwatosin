@@ -271,7 +271,7 @@
         0%,100% { opacity:1; transform:scale(1); box-shadow:0 0 0 0 rgba(0,198,255,.5); }
         50%      { opacity:.5; transform:scale(.7); box-shadow:0 0 0 5px rgba(0,198,255,0); }
     }
-    .nav-name { font-size: 13px; font-weight: 600; letter-spacing: .3px; flex: 1; }
+    .nav-name { font-size: 14px; font-weight: 600; letter-spacing: .3px; flex: 1; }
     .nav-controls { display: flex; align-items: center; gap: 6px; margin-left: 6px; }
     .nav-btn {
         width: 34px; height: 34px;
@@ -723,7 +723,7 @@
     }
     .svc-card:hover .svc-icon { transform: scale(1.1) rotate(-5deg); }
     .svc-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-    .svc-desc { font-size: 13px; line-height: 1.72; color: var(--text-dim); font-family: 'Inter', sans-serif; margin-bottom: 20px; }
+    .svc-desc { font-size: 15px; line-height: 1.72; color: var(--text-dim); font-family: 'Inter', sans-serif; margin-bottom: 20px; }
     .svc-cta {
         display: inline-flex; align-items: center; gap: 6px;
         font-size: 12px; font-weight: 700; letter-spacing: .4px;
@@ -1058,17 +1058,21 @@
     ═══════════════════════════════════════════════════════════════ */
     .fab-wa {
         position: fixed; bottom: 28px; right: 28px; z-index: 500;
-        width: 58px; height: 58px; border-radius: 50%;
-        background: linear-gradient(145deg, #25d366, #128c7e);
+        width: 46px; height: 46px; border-radius: 50%;
+        background: var(--glass); backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(37,211,102,.35);
         display: flex; align-items: center; justify-content: center;
-        font-size: 28px; color: #fff; text-decoration: none;
-        box-shadow: 0 6px 26px rgba(37,211,102,.42);
-        transition: transform .3s ease, box-shadow .3s ease;
+        font-size: 20px; color: #25d366; text-decoration: none;
+        box-shadow: 0 4px 18px rgba(37,211,102,.18);
+        transition: all .3s ease;
         animation: fab-float 3s ease-in-out infinite;
     }
     .fab-wa:hover {
-        transform: scale(1.13) translateY(-4px) !important;
-        box-shadow: 0 16px 38px rgba(37,211,102,.58);
+        transform: translateY(-4px) !important;
+        border-color: rgba(37,211,102,.6);
+        background: rgba(37,211,102,.1);
+        box-shadow: 0 8px 26px rgba(37,211,102,.28);
         animation: none;
     }
     .fab-tip {
@@ -1112,7 +1116,7 @@
         border: 1px solid var(--border);
         display: flex; align-items: center; justify-content: center;
         color: var(--sky); font-size: 14px;
-        cursor: none; transition: all .3s ease;
+        cursor: pointer; transition: all .3s ease;
         opacity: 0; pointer-events: none; transform: translateY(14px);
     }
     .back-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
@@ -1151,7 +1155,7 @@
         will-change: transform;
     }
     .testi-carousel .testi-card {
-        flex: 0 0 calc((100% - 40px) / 3);
+        flex: 0 0 calc((100% - 20px) / 2);
         min-width: 0;
     }
     .testi-nav-btn {
@@ -1186,40 +1190,49 @@
         width: 24px; border-radius: 3.5px;
         background: linear-gradient(90deg, var(--blue), var(--sky));
     }
-    @media (max-width: 860px) {
-        .testi-carousel-wrap { padding: 0 40px; }
-        .testi-carousel .testi-card { flex: 0 0 calc((100% - 20px) / 2); }
-    }
-    @media (max-width: 560px) {
-        .testi-carousel-wrap { padding: 0 36px; }
+    @media (max-width: 700px) {
+        .testi-carousel-wrap { padding: 0 38px; }
         .testi-carousel .testi-card { flex: 0 0 100%; }
-        .testi-nav-btn { width: 36px; height: 36px; font-size: 12px; }
+        .testi-nav-btn { width: 38px; height: 38px; font-size: 12px; }
     }
     .testi-card {
-        padding: 30px; border-radius: 22px; cursor: default;
+        padding: 28px 26px 22px; border-radius: 24px; cursor: default;
+        display: flex; flex-direction: column; position: relative; overflow: hidden;
         transition: transform .35s ease, box-shadow .35s ease, border-color .3s;
     }
-    .testi-card:hover { transform: translateY(-6px); border-color: var(--border-h); box-shadow: 0 22px 44px var(--shadow); }
-    .testi-top { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+    /* Subtle watermark quote in background */
+    .testi-card::after {
+        content: '\201C';
+        position: absolute; right: 18px; top: 10px;
+        font-size: 90px; font-family: Georgia, serif; line-height: 1;
+        color: var(--blue); opacity: .055; pointer-events: none; z-index: 0;
+    }
+    .testi-card:hover { transform: translateY(-6px); border-color: var(--border-h); box-shadow: 0 22px 48px var(--shadow); }
+    .testi-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; position: relative; z-index: 1; }
     .testi-avatar {
-        width: 44px; height: 44px; border-radius: 50%;
-        background: linear-gradient(135deg, rgba(0,133,255,.18), rgba(0,198,255,.08));
-        border: 1px solid rgba(0,133,255,.22);
+        width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0;
+        background: linear-gradient(135deg, rgba(0,133,255,.2), rgba(0,198,255,.08));
+        border: 2px solid rgba(0,133,255,.25);
         display: flex; align-items: center; justify-content: center;
-        font-size: 16px; font-weight: 700; color: var(--sky); flex-shrink: 0;
+        font-size: 18px; font-weight: 800; color: var(--sky);
+        overflow: hidden;
     }
-    .testi-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-    .testi-role { font-size: 11px; color: var(--text-muted); font-family: 'Inter', sans-serif; }
-    .testi-stars { color: #ffc400; font-size: 11px; letter-spacing: 2px; margin-bottom: 14px; }
+    .testi-avatar img {
+        width: 100%; height: 100%; object-fit: cover; object-position: center top;
+        display: block;
+    }
+    .testi-name { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 3px; letter-spacing: -.2px; }
+    .testi-role { font-size: 11px; color: var(--text-muted); font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 4px; }
+    .testi-stars { color: #ffc400; font-size: 12px; letter-spacing: 2.5px; margin-bottom: 12px; position: relative; z-index: 1; }
     .testi-body {
-        font-size: 14px; line-height: 1.82; color: var(--text-dim);
-        font-family: 'Inter', sans-serif; font-style: italic;
-        padding-left: 20px; position: relative;
+        font-size: 15px; line-height: 1.85; color: var(--text-dim);
+        font-family: 'Inter', sans-serif;
+        flex: 1; margin-bottom: 18px; position: relative; z-index: 1;
     }
-    .testi-body::before {
-        content: '"'; position: absolute; left: 0; top: -6px;
-        font-size: 36px; color: var(--blue); opacity: .4;
-        font-family: Georgia, serif; font-style: normal; line-height: 1;
+    .testi-verified {
+        display: inline-flex; align-items: center; gap: 5px;
+        font-size: 10.5px; font-weight: 700; letter-spacing: .3px;
+        color: var(--sky); margin-top: auto; position: relative; z-index: 1;
     }
     @media (max-width: 640px) {
         .tab-btn { padding: 9px 16px; font-size: 12px; }
@@ -1492,7 +1505,7 @@
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         margin-bottom: 8px; display: inline-block;
     }
-    .footer-tagline { font-size: 12px; color: var(--text-muted); margin-bottom: 28px; }
+    .footer-tagline { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
     .footer-links {
         display: flex;
         justify-content: center;
@@ -1501,7 +1514,7 @@
         margin-bottom: 28px;
     }
     .footer-links a {
-        font-size: 12.5px; color: var(--text-dim);
+        font-size: 14px; color: var(--text-dim);
         text-decoration: none; transition: color .25s;
         font-family: 'Inter', sans-serif;
     }
@@ -1523,7 +1536,7 @@
         transition: all .3s;
     }
     .footer-social-link:hover { border-color: var(--blue); color: var(--sky); transform: translateY(-3px); background: rgba(0,133,255,.08); }
-    .footer-copy { font-size: 12px; color: var(--text-muted); }
+    .footer-copy { font-size: 13px; color: var(--text-muted); }
     .footer-copy + .footer-copy { margin-top: 8px; }
     .footer-dot { opacity: .4; margin: 0 6px; }
 
@@ -1559,81 +1572,189 @@
     /* ═══════════════════════════════════════════════════════════════
        ABOUT SECTION — CHAPTER / JOURNEY LAYOUT
     ═══════════════════════════════════════════════════════════════ */
-    .about-journey { display: flex; flex-direction: column; gap: 0; }
+    /* ── About card decorative background ── */
+    .about-card {
+        position: relative; overflow: hidden;
+    }
+    .about-card::before {
+        content: '';
+        position: absolute; top: -100px; right: -100px;
+        width: 340px; height: 340px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,133,255,.10) 0%, transparent 65%);
+        pointer-events: none;
+    }
+    .about-card::after {
+        content: '';
+        position: absolute; bottom: -80px; left: -80px;
+        width: 260px; height: 260px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(139,92,246,.08) 0%, transparent 65%);
+        pointer-events: none;
+    }
+
+    /* ── Journey layout ── */
+    .about-journey { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; }
+
     .about-chapter {
         position: relative;
-        padding-left: 62px;
+        padding-left: 68px;
         padding-bottom: 36px;
         padding-top: 4px;
+        transition: background .3s;
     }
-    /* Timeline connector line */
+    /* Timeline connector — dashed with chapter color */
     .about-chapter::before {
         content: '';
         position: absolute;
-        left: 15px; top: 34px; bottom: 0;
+        left: 18px; top: 42px; bottom: 0;
         width: 2px;
-        background: linear-gradient(180deg, var(--chapter-clr, rgba(0,198,255,.35)) 0%, transparent 100%);
-        border-radius: 2px;
+        background: repeating-linear-gradient(
+            180deg,
+            var(--chapter-clr, rgba(0,198,255,.3)) 0px,
+            var(--chapter-clr, rgba(0,198,255,.3)) 6px,
+            transparent 6px,
+            transparent 12px
+        );
     }
     .about-chapter:last-child { padding-bottom: 0; }
     .about-chapter:last-child::before { display: none; }
 
-    /* Numbered marker */
+    /* ── Numbered marker with outer ring ── */
     .about-chapter-marker {
-        position: absolute;
-        left: 0; top: 2px;
-        width: 32px; height: 32px;
-        border-radius: 50%;
+        position: absolute; left: 0; top: 2px;
+        width: 38px; height: 38px; border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-size: 12px; font-weight: 900; color: #fff;
-        flex-shrink: 0;
-        box-shadow: 0 4px 16px var(--chapter-shadow, rgba(0,133,255,.4));
+        font-size: 13px; font-weight: 900; color: #fff; flex-shrink: 0;
+        box-shadow:
+            0 6px 22px var(--chapter-shadow, rgba(0,133,255,.45)),
+            0 0 0 5px var(--chapter-ring, rgba(0,133,255,.10));
+        transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .about-chapter:hover .about-chapter-marker {
+        transform: scale(1.12);
+        box-shadow:
+            0 8px 28px var(--chapter-shadow, rgba(0,133,255,.6)),
+            0 0 0 7px var(--chapter-ring, rgba(0,133,255,.15));
     }
 
-    /* Chapter header label */
+    /* ── Chapter header label ── */
     .about-chapter-label {
         font-size: 10px; font-weight: 800;
-        letter-spacing: 2.5px; text-transform: uppercase;
+        letter-spacing: 2.8px; text-transform: uppercase;
         color: var(--sky);
-        margin-bottom: 14px;
+        margin-bottom: 16px;
         display: flex; align-items: center; gap: 10px;
-        opacity: .9;
+        opacity: .95;
     }
     .about-chapter-label::after {
         content: '';
-        flex: 1; max-width: 48px; height: 1px;
-        background: linear-gradient(90deg, rgba(0,198,255,.4), transparent);
+        flex: 1; max-width: 52px; height: 1px;
+        background: linear-gradient(90deg, rgba(0,198,255,.45), transparent);
     }
 
-    /* Callout highlight block */
+    /* ── Paragraph text ── */
+    .about-intro-text { font-size: 16px !important; line-height: 1.92 !important; }
+
+    /* ── Callout highlight (chapter 3 green) ── */
     .about-callout {
-        background: linear-gradient(135deg, rgba(0,133,255,.10), rgba(0,198,255,.05));
-        border-left: 3px solid rgba(0,198,255,.55);
-        border-radius: 0 14px 14px 0;
-        padding: 18px 22px;
-        font-style: italic;
+        background: linear-gradient(135deg, rgba(34,197,94,.09), rgba(34,197,94,.03));
+        border: 1px solid rgba(34,197,94,.18);
+        border-left: 3px solid rgba(34,197,94,.6);
+        border-radius: 0 16px 16px 0;
+        padding: 20px 24px;
+        font-style: italic; line-height: 1.8;
         margin-bottom: 12px;
-        line-height: 1.75;
+        position: relative;
     }
-    .about-callout.about-text { border-left-color: rgba(0,198,255,.55) !important; }
+    .about-callout::before {
+        content: '\201C';
+        position: absolute; left: 14px; top: 10px;
+        font-size: 28px; line-height: 1;
+        color: rgba(34,197,94,.4);
+        font-family: Georgia, serif; font-style: normal;
+    }
+    .about-callout.about-text { border-left-color: rgba(34,197,94,.6) !important; }
 
-    /* Mission block */
+    /* ── Mission block (chapter 5 pink) ── */
     .about-mission {
-        background: linear-gradient(135deg, rgba(0,133,255,.07), rgba(0,198,255,.03));
-        border-radius: 14px;
-        padding: 18px 22px;
-        margin-bottom: 12px;
-        line-height: 1.75;
+        background: linear-gradient(135deg, rgba(236,72,153,.07), rgba(244,114,182,.03));
+        border: 1px solid rgba(236,72,153,.14);
+        border-radius: 16px;
+        padding: 20px 24px;
+        margin-bottom: 12px; line-height: 1.8;
     }
-    .about-intro-text {
-        font-size: 16px !important;
-        line-height: 1.9 !important;
+
+    /* ── Per-chapter color tokens ── */
+    .about-journey > .about-chapter:nth-child(1) { --chapter-clr: rgba(0,133,255,.38);  --chapter-shadow: rgba(0,133,255,.55); --chapter-ring: rgba(0,133,255,.12); }
+    .about-journey > .about-chapter:nth-child(2) { --chapter-clr: rgba(139,92,246,.38); --chapter-shadow: rgba(139,92,246,.55); --chapter-ring: rgba(139,92,246,.12); }
+    #about-extra .about-chapter:nth-child(1)      { --chapter-clr: rgba(34,197,94,.38);  --chapter-shadow: rgba(34,197,94,.55);  --chapter-ring: rgba(34,197,94,.12); }
+    #about-extra .about-chapter:nth-child(2)      { --chapter-clr: rgba(245,158,11,.38); --chapter-shadow: rgba(245,158,11,.55); --chapter-ring: rgba(245,158,11,.12); }
+    #about-extra .about-chapter:nth-child(3)      { --chapter-clr: rgba(236,72,153,.38); --chapter-shadow: rgba(236,72,153,.55); --chapter-ring: rgba(236,72,153,.12); }
+
+    /* ── Collapsible bodies ── */
+    .about-ch-body {
+        max-height: 0; overflow: hidden; opacity: 0;
+        transition: max-height .7s cubic-bezier(.4,0,.2,1), opacity .55s ease;
     }
-    /* Per-chapter color tokens */
-    .about-chapter:nth-child(1) { --chapter-clr: rgba(0,133,255,.4); --chapter-shadow: rgba(0,133,255,.5); }
-    .about-chapter:nth-child(2) { --chapter-clr: rgba(139,92,246,.4); --chapter-shadow: rgba(139,92,246,.5); }
-    .about-chapter:nth-child(3) { --chapter-clr: rgba(34,197,94,.4);  --chapter-shadow: rgba(34,197,94,.5);  }
-    .about-chapter:nth-child(4) { --chapter-clr: rgba(245,158,11,.4); --chapter-shadow: rgba(245,158,11,.5); }
+    #about-extra.open .about-ch-body { max-height: 800px; opacity: 1; }
+    #about-extra .about-chapter { padding-bottom: 16px; }
+    #about-extra.open .about-chapter { padding-bottom: 36px; }
+    #about-extra .about-chapter:last-child { padding-bottom: 0; }
+
+    /* ── Read more button ── */
+    .about-read-more {
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        width: 100%; margin-top: 24px; padding: 14px 28px;
+        background: linear-gradient(135deg, rgba(0,133,255,.10), rgba(0,198,255,.06));
+        border: 1px solid rgba(0,198,255,.22);
+        border-radius: 50px; cursor: pointer;
+        color: var(--sky); font-size: 13px; font-weight: 700; letter-spacing: .4px;
+        font-family: 'Space Grotesk', sans-serif;
+        transition: all .3s; position: relative; z-index: 1;
+        box-shadow: 0 2px 14px rgba(0,133,255,.08);
+    }
+    .about-read-more:hover {
+        background: linear-gradient(135deg, rgba(0,133,255,.18), rgba(0,198,255,.12));
+        border-color: rgba(0,198,255,.4);
+        box-shadow: 0 6px 22px rgba(0,133,255,.18);
+        transform: translateY(-2px);
+    }
+    .about-read-more i { font-size: 11px; transition: transform .35s; }
+    .about-read-more.open i.chevron { transform: rotate(180deg); }
+    [data-theme="light"] .about-read-more {
+        background: rgba(0,133,255,.07);
+        border-color: rgba(0,133,255,.22);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SCROLL REVEAL ANIMATIONS
+    ═══════════════════════════════════════════════════════════════ */
+    .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left  { opacity: 0; transform: translateX(-32px); transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1); }
+    .reveal-left.visible  { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(32px);  transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1); }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal[data-delay="1"], .reveal-left[data-delay="1"], .reveal-right[data-delay="1"] { transition-delay: .08s; }
+    .reveal[data-delay="2"], .reveal-left[data-delay="2"], .reveal-right[data-delay="2"] { transition-delay: .16s; }
+    .reveal[data-delay="3"], .reveal-left[data-delay="3"], .reveal-right[data-delay="3"] { transition-delay: .24s; }
+    .reveal[data-delay="4"], .reveal-left[data-delay="4"], .reveal-right[data-delay="4"] { transition-delay: .32s; }
+    .reveal[data-delay="5"], .reveal-left[data-delay="5"], .reveal-right[data-delay="5"] { transition-delay: .40s; }
+    @media (prefers-reduced-motion: reduce) {
+        .reveal, .reveal-left, .reveal-right { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Clickable chapter labels in collapsed area ── */
+    #about-extra .about-chapter-label {
+        cursor: pointer;
+        transition: color .25s, opacity .25s;
+    }
+    #about-extra .about-chapter-label:hover { color: var(--text); opacity: 1; }
+    .about-ch-body.ch-open { max-height: 800px !important; opacity: 1 !important; }
+    .about-chapter.ch-open { padding-bottom: 36px !important; }
 
     /* ═══════════════════════════════════════════════════════════════
        PAULTECHNOLOG REDESIGN
@@ -1663,14 +1784,20 @@
         background: linear-gradient(135deg, rgba(0,133,255,.22), rgba(0,198,255,.1));
         border: 1px solid rgba(0,198,255,.28);
         display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0;
+        flex-shrink: 0; position: relative; overflow: hidden;
         box-shadow: 0 8px 32px rgba(0,133,255,.2);
+    }
+    .pt-badge img {
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: contain; padding: 10px;
+        border-radius: 22px;
     }
     .pt-badge span {
         font-size: 26px; font-weight: 900;
         background: linear-gradient(135deg, #60b4ff, #00c6ff);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        letter-spacing: -1px;
+        letter-spacing: -1px; position: relative; z-index: 0;
     }
     .pt-banner-text { flex: 1; }
     .pt-headline {
@@ -2089,7 +2216,7 @@
     .faq-q {
         display: flex; align-items: center; justify-content: space-between;
         gap: 16px; padding: 20px 24px; cursor: pointer;
-        font-size: 15px; font-weight: 600; line-height: 1.45;
+        font-size: 17px; font-weight: 600; line-height: 1.45;
         transition: color .25s; user-select: none; list-style: none;
     }
     .faq-q:hover { color: var(--sky); }
@@ -2110,7 +2237,7 @@
         padding: 0 24px;
     }
     .faq-item.open .faq-a { max-height: 500px; padding: 0 24px 22px; }
-    .faq-a p { font-size: 14px; line-height: 1.88; color: var(--text-dim); font-family: 'Inter', sans-serif; }
+    .faq-a p { font-size: 15px; line-height: 1.88; color: var(--text-dim); font-family: 'Inter', sans-serif; }
     .faq-a a { color: var(--sky); }
     </style>
 </head>
@@ -2198,7 +2325,7 @@
         <div class="hero-inner">
 
             <!-- Image Slider -->
-            <div class="slider-wrap">
+            <div class="slider-wrap reveal-left">
                 <div class="slider-glow" aria-hidden="true"></div>
 <div class="slider-frame glass">
                     <div class="slide active" data-slide="0">
@@ -2223,7 +2350,7 @@
             </div>
 
             <!-- Hero Content -->
-            <div class="hero-content">
+            <div class="hero-content reveal-right">
                 <div class="hero-badge">
                     <i class="fa-solid fa-circle-dot fa-xs"></i>
                     Open to Collaborations
@@ -2266,12 +2393,12 @@
 
     <!-- ABOUT -->
     <section id="about" class="fade-up" aria-labelledby="about-heading">
-        <div class="sec-label">About Me</div>
-        <h2 class="sec-title" id="about-heading">A little about<br>who I am</h2>
-        <div class="glass about-card">
+        <div class="sec-label reveal">About Me</div>
+        <h2 class="sec-title reveal" data-delay="1" id="about-heading">A little about<br>who I am</h2>
+        <div class="glass about-card reveal" data-delay="2">
             <div class="about-journey">
 
-                <!-- Chapter 1 -->
+                <!-- Chapter 1 — always visible -->
                 <div class="about-chapter">
                     <div class="about-chapter-marker" style="background:linear-gradient(135deg,var(--blue),var(--sky));">1</div>
                     <div class="about-chapter-label"><i class="fa-solid fa-user fa-xs"></i> Who I Am</div>
@@ -2280,41 +2407,62 @@
                     </p>
                 </div>
 
-                <!-- Chapter 2 -->
+                <!-- Chapter 2 — always visible -->
                 <div class="about-chapter">
                     <div class="about-chapter-marker" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">2</div>
                     <div class="about-chapter-label"><i class="fa-solid fa-road fa-xs"></i> How It Started</div>
                     <p class="about-text">
-                        I started like most people, trying to figure out how to make money online without getting lost or overwhelmed. At the time, I was broke, frustrated, and unsure of what direction to take.
-                    </p>
-                    <p class="about-text" style="margin-top:14px;">
-                        I tried different opportunities, made costly mistakes, and struggled to find something that truly worked online. I invested time in the wrong platforms, lost money, and faced challenges that left me confused and stuck.
+                        I started like most people, trying to figure out how to make money online without getting lost or overwhelmed. At the time, I was broke, frustrated, and unsure of what direction to take. I invested in the wrong platforms many times, made costly mistakes, and struggled to find something that truly worked.
                     </p>
                 </div>
 
-                <!-- Chapter 3 — Turning Point (callout) -->
-                <div class="about-chapter">
-                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,#22c55e,#4ade80);">3</div>
-                    <div class="about-chapter-label"><i class="fa-solid fa-bolt fa-xs"></i> The Turning Point</div>
-                    <p class="about-text about-callout">
-                        Everything began to change when I found a simple and practical system that made sense. I stopped guessing, started learning real affiliate marketing and design skills, and applied them the right way. <strong>That was when I began to see results.</strong>
-                    </p>
-                    <p class="about-text" style="margin-top:14px;">
-                        After some years, I was introduced to a business program that completely transformed my mindset and direction. That experience pushed me further into learning and growth, leading me to study software development and sharpen my digital skills. Since then, I have built real experience working on projects, earning through freelancing, and growing a passive income business through network marketing.
-                    </p>
+                <!-- Chapters 3-5 — collapsed until "Read more" -->
+                <div id="about-extra">
+
+                    <div class="about-chapter">
+                        <div class="about-chapter-marker" style="background:linear-gradient(135deg,#22c55e,#4ade80);">3</div>
+                        <div class="about-chapter-label"><i class="fa-solid fa-bolt fa-xs"></i> The Turning Point</div>
+                        <div class="about-ch-body">
+                            <p class="about-text about-callout">
+                                After a long period of trials and errors, something began to shift. I made the decision to invest in real knowledge. I started learning design skills and enrolled as an affiliate marketer on Expertnaire. I learned, implemented, and that experience shaped my understanding of marketing and communication in ways nothing else had before. I applied what I learned the right way, and that became the beginning of my real turning point in the online space.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="about-chapter">
+                        <div class="about-chapter-marker" style="background:linear-gradient(135deg,#f59e0b,#fb923c);">4</div>
+                        <div class="about-chapter-label"><i class="fa-solid fa-briefcase fa-xs"></i> My Business Journey</div>
+                        <div class="about-ch-body">
+                            <p class="about-text">
+                                After some years, I was introduced to a business program that completely transformed my skills, my mindset, my direction, and completely changed my life 360 degrees. That experience was a major leap forward in every area.
+                            </p>
+                            <p class="about-text" style="margin-top:14px;">
+                                It also pushed me further into pursuing my education in software development and sharpening my other digital skills. Since then, I have built real experience working on projects, earning through freelancing, and growing a passive income business through network marketing.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="about-chapter">
+                        <div class="about-chapter-marker" style="background:linear-gradient(135deg,#ec4899,#f472b6);">5</div>
+                        <div class="about-chapter-label"><i class="fa-solid fa-flag fa-xs"></i> My Mission Today</div>
+                        <div class="about-ch-body">
+                            <p class="about-text about-mission">
+                                Today, I combine all of that to help people learn valuable digital skills, build income streams, and actually start earning online. I don’t believe in theory without results. <strong>Everything I teach is practical, tested, and designed to help you start, grow, and stay consistent.</strong>
+                            </p>
+                            <p class="about-text" style="margin-top:14px;">
+                                I believe the internet is the greatest equaliser of our generation. With the right skills, guidance, and mindset, anyone’s story can change. My mission is to show people exactly how, through hands-on mentorship, practical teachings, and proven strategies that help you make real progress.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Chapter 4 — Mission -->
-                <div class="about-chapter">
-                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,#f59e0b,#fb923c);">4</div>
-                    <div class="about-chapter-label"><i class="fa-solid fa-flag fa-xs"></i> My Mission Today</div>
-                    <p class="about-text about-mission">
-                        Today, I combine all of that to help people learn valuable digital skills, build income streams, and actually start earning online. I don’t believe in theory without results. <strong>Everything I teach is practical, tested, and designed to help you start, grow, and stay consistent.</strong>
-                    </p>
-                    <p class="about-text" style="margin-top:14px;">
-                        I believe the internet is the greatest equaliser of our generation. With the right skills, guidance, and mindset, anyone’s story can change. My mission is to show people exactly how — through hands-on mentorship, practical teachings, and proven strategies that help you make real progress.
-                    </p>
-                </div>
+                <!-- Read more toggle -->
+                <button class="about-read-more" id="about-read-more" type="button" aria-expanded="false">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span id="about-read-more-label">Read my full story</span>
+                    <i class="fa-solid fa-chevron-down chevron"></i>
+                </button>
 
             </div>
             <div class="divider"></div>
@@ -2323,7 +2471,7 @@
                 <span class="pill pill-purple"><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</span>
                 <span class="pill pill-cyan"><i class="fa-solid fa-pen-ruler"></i> Graphic Design</span>
                 <span class="pill pill-orange"><i class="fa-solid fa-chart-line"></i> Business Coach</span>
-                <span class="pill pill-green"><i class="fa-solid fa-people-group"></i> MLM Expert</span>
+                <span class="pill pill-green"><i class="fa-solid fa-people-group"></i> Network Marketing</span>
                 <span class="pill pill-red"><i class="fa-solid fa-lightbulb"></i> Productivity Mentor</span>
             </div>
         </div>
@@ -2333,8 +2481,8 @@
 
     <!-- SKILLS -->
     <section id="skills" class="fade-up" aria-labelledby="skills-heading">
-        <div class="sec-label">Tech Stack</div>
-        <h2 class="sec-title" id="skills-heading">Skills &amp;<br>Technologies</h2>
+        <div class="sec-label reveal">Tech Stack</div>
+        <h2 class="sec-title reveal" data-delay="1" id="skills-heading">Skills &amp;<br>Technologies</h2>
         <div class="glass" style="overflow:hidden;">
             <div class="sk-bento">
 
@@ -2390,7 +2538,7 @@
                     <div class="sk-ring-wrap">
                         <svg viewBox="0 0 36 36" aria-hidden="true">
                             <circle class="sr-bg" cx="18" cy="18" r="15.9" pathLength="100"/>
-                            <circle class="sr-fill" cx="18" cy="18" r="15.9" pathLength="100" data-pct="80" style="stroke:#54c5f8;"/>
+                            <circle class="sr-fill" cx="18" cy="18" r="15.9" pathLength="100" data-pct="90" style="stroke:#54c5f8;"/>
                         </svg>
                         <span class="sk-ring-icon" style="color:#54c5f8;font-size:11px;font-weight:900;font-family:'Space Grotesk',sans-serif;">FL</span>
                     </div>
@@ -2454,8 +2602,8 @@
 
     <!-- WHAT I DO -->
     <section id="services" class="fade-up" aria-labelledby="services-heading">
-        <div class="sec-label">What I Do</div>
-        <h2 class="sec-title" id="services-heading">How I create<br>value for people</h2>
+        <div class="sec-label reveal">What I Do</div>
+        <h2 class="sec-title reveal" data-delay="1" id="services-heading">How I create<br>value for people</h2>
         <div class="services-grid">
             <div class="glass svc-card fade-up d1">
                 <span class="svc-num" aria-hidden="true">01</span>
@@ -2487,7 +2635,7 @@
                 <div class="svc-divider" style="color:#fb923c"></div>
                 <div class="svc-title">MLM &amp; Business Coach</div>
                 <p class="svc-desc">I mentor entrepreneurs to create sustainable online income by teaching practical strategies, proven systems, and actionable steps that turn skills into real earnings.</p>
-                <button class="svc-cta open-modal-btn" type="button">Book a session <i class="fa-solid fa-arrow-right"></i></button>
+                <button class="svc-cta open-modal-btn" type="button">Learn more <i class="fa-solid fa-arrow-right"></i></button>
             </div>
         </div>
     </section>
@@ -2496,15 +2644,18 @@
 
     <!-- PAULTECHNOLOG BRAND -->
     <section class="fade-up" aria-labelledby="brand-heading">
-        <div class="sec-label">My Brand</div>
-        <h2 class="sec-title" id="brand-heading">Powered by<br>PaulTechnolog</h2>
-        <div class="glass pt-card">
+        <div class="sec-label reveal">My Brand</div>
+        <h2 class="sec-title reveal" data-delay="1" id="brand-heading">Powered by<br>PaulTechnolog</h2>
+        <div class="glass pt-card reveal" data-delay="2">
             <!-- Banner row -->
             <div class="pt-banner">
                 <div class="pt-banner-glow" aria-hidden="true"></div>
                 <div class="pt-banner-glow2" aria-hidden="true"></div>
                 <div class="pt-banner-inner">
-                    <div class="pt-badge" aria-hidden="true">PT</div>
+                    <div class="pt-badge">
+                        <img src="images/pt-logo.png" alt="PaulTechnolog Logo" loading="lazy" onerror="this.style.display='none'">
+                        <span>PT</span>
+                    </div>
                     <div class="pt-banner-text">
                         <h3 class="pt-headline">PaulTechnolog</h3>
                         <p class="pt-sub">Technology Solutions for the Modern World</p>
@@ -2514,7 +2665,7 @@
             <!-- Body -->
             <div class="pt-body">
                 <p class="pt-desc">
-                    PaulTechnolog is a brand built to help businesses and individuals succeed online. We deliver modern websites, intuitive mobile applications, striking visual design, and smart marketing strategies — so you stand out, reach your audience, and grow your income.
+                    PaulTechnolog is a brand built to help businesses and individuals succeed online. We deliver modern websites, intuitive mobile applications, striking visual design, and smart marketing strategies, so you stand out, reach your audience, and grow your income.
                 </p>
                 <!-- 4-tile service grid -->
                 <div class="pt-grid" aria-label="PaulTechnolog services">
@@ -2585,8 +2736,8 @@
 
     <!-- TESTIMONIALS -->
     <section id="testimonials" class="fade-up" aria-labelledby="testi-heading">
-        <div class="sec-label">Testimonials</div>
-        <h2 class="sec-title" id="testi-heading">What people<br>are saying</h2>
+        <div class="sec-label reveal">Testimonials</div>
+        <h2 class="sec-title reveal" data-delay="1" id="testi-heading">What people<br>are saying</h2>
         <div class="testi-tabs" role="tablist" aria-label="Testimonial categories">
             <button class="tab-btn active" data-tab="fhg" role="tab" aria-selected="true">FHG Business</button>
             <button class="tab-btn" data-tab="affiliate" role="tab" aria-selected="false">Affiliate Marketing</button>
@@ -2599,107 +2750,131 @@
                 <div class="testi-carousel">
                     <div class="testi-track">
 
+                        <!-- 1. Mr Ayinde A. -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-1">AM</div>
+                                <div class="testi-avatar av-1">
+                                    <img src="images/review-ayinde.jpeg" alt="Mr Ayinde A." loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Adaeze M.</div>
-                                    <div class="testi-role">FHG Business Partner &bull; Benin City</div>
+                                    <div class="testi-name">Mr Ayinde A.</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Ogbomoso</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">Coach Oluwatosin completely changed my perspective about building income online. The FHG opportunity he introduced me to has been life-changing. I was very skeptical at first but his patience, clarity, and genuine care made all the difference. I now earn consistently every month.</p>
+                            <p class="testi-body">Working with my sponsor, Mr Tosin, has been a truly transformative experience for both my business and personal growth. His guidance, mentorship, and hands-on training equipped me with the skills and confidence I needed to succeed. What stands out most is not just what he taught me, but how effectively I have been able to duplicate that knowledge within my own team. Today I can confidently train and support my team using the same proven systems he shared with me. His impact is deep, lasting, and continuously growing. I am truly grateful to be connected to such a leader.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
+                        <!-- 2. Israel M. -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-2">BA</div>
+                                <div class="testi-avatar av-2">
+                                    <img src="images/review-israel.jpeg" alt="Israel M." loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Blessing A.</div>
-                                    <div class="testi-role">FHG Network Builder &bull; Ilorin</div>
+                                    <div class="testi-name">Israel M.</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Ogbomoso</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">I started the FHG business with almost nothing and Coach Tosin was there every single step of the way. Within three months I had built a team of 14 people right here in Ilorin. He doesn't just teach theory, he walks with you until you actually see results with your own eyes.</p>
+                            <p class="testi-body">Mr Oluwatosin is truly a great coach and mentor. I attended his mobile app and website development classes about five to seven times. By the third class I already understood most of what he was teaching because of how practical and clear his coaching was, but I intentionally kept attending to gain deeper understanding. He doesn't just teach, he coaches. Through what I learned I was able to convert buyers, close deals, and collect payments on my own even in his absence, and I later started earning with those skills. He is an amazing coach and I highly recommend him.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
+                        <!-- 3. Omotola A. -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-3">FO</div>
+                                <div class="testi-avatar av-3">
+                                    <img src="images/review-omotola.png" alt="Omotola A." loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Funmi O.</div>
-                                    <div class="testi-role">FHG Business Partner &bull; Ogbomoso</div>
+                                    <div class="testi-name">Omotola A.</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Ogbomoso</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">The FHG business opportunity through Coach Oluwatosin gave me a structure I never had before. He is always available to guide you and the community he built on WhatsApp is incredibly active and supportive. Joining was genuinely the best financial decision I have made in years.</p>
+                            <p class="testi-body">I joined as a 200-level student at a time I was really struggling financially. Funny enough, I had heard about the business before but didn't take action. When I finally understood how it works, I honestly regretted not starting earlier. So far it has helped me financially and improved my mindset. I am more confident in myself now and I see things differently. The support and guidance from Coach Oluwatosin has made everything easier to follow, and I am glad I made the decision to start.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
+                        <!-- 4. Fawaz Musa -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-4">EC</div>
+                                <div class="testi-avatar av-4">
+                                    <img src="images/review-fawaz.jpeg" alt="Fawaz Musa" loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Emeka C.</div>
-                                    <div class="testi-role">FHG Business Partner &bull; Benin City</div>
+                                    <div class="testi-name">Fawaz Musa</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Benin</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">A friend here in Benin referred me to Coach Tosin and honestly it changed my financial situation in ways I did not expect. The FHG program is very legitimate and his step-by-step guidance made everything clear from day one. I now earn from home and I am genuinely grateful for the introduction.</p>
+                            <p class="testi-body">I had the opportunity to be part of Mr Tosin's team and go through his mentorship, and ever since I joined, I have never once regretted it. The business is full of innovation and valuable skills. This is not about skill learning alone, it is about building skills and personal development at the same time. Within a few months of learning, training, and applying the right mindset, I began to see consistent results. Today I am able to take care of myself and my needs, and that is a direct result of this business and what his mentorship made possible.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
+                        <!-- 5. Jeremiah O. -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-5">TF</div>
+                                <div class="testi-avatar av-5">
+                                    <img src="images/review-jeremiah.png" alt="Jeremiah O." loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Taiwo F.</div>
-                                    <div class="testi-role">FHG Team Leader &bull; Ogbomoso</div>
+                                    <div class="testi-name">Jeremiah O.</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Ogbomoso</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">Before joining through Coach Oluwatosin I had tried three other online businesses and failed every time. FHG was different because of the way he explained the entire system. It made complete sense. I have now personally mentored 8 people myself using exactly what he taught me.</p>
+                            <p class="testi-body">Working with Coach Tosin has been one of the most practical decisions I have made in my journey to build income online. Before joining, I had tried a few things that didn't really work, so I was unsure at first. But his step-by-step guidance and consistency helped me stay focused. The FHG system gave me a clear structure and the support from the community kept me going even when progress felt slow. What stands out is not just the teaching but the patience and genuine willingness to help you grow at your own pace. I am now earning more consistently and feel more confident about my financial future.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
+                        <!-- 6. Mr Qoyum -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-6">SO</div>
+                                <div class="testi-avatar av-6">
+                                    <img src="images/review-qoyum.png" alt="Mr Qoyum" loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Shade O.</div>
-                                    <div class="testi-role">FHG Entrepreneur &bull; Ilorin</div>
+                                    <div class="testi-name">Mr Qoyum</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Ogbomoso</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">Coach Oluwatosin has a real gift for making complex business concepts simple and easy to follow. I was a complete beginner when I joined FHG through him here in Ilorin. His one-on-one support and the active WhatsApp group kept me accountable every week. I started seeing real results in my second month.</p>
+                            <p class="testi-body">Working with Mr Tosin has been a great experience for me. He has been more than a trainer, he has been a guide, mentor, and true coach. What I appreciate most is that he doesn't just teach you a skill, he guides you until you are confident enough to do it expertly on your own. Even in my freelancing journey, his guidance helped shape my understanding and growth. His goal is not just for you to learn from him, but for you to become skilled and independent. That kind of coaching is rare. He is patient, practical, and committed to seeing his students succeed. I highly recommend him.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
+                        <!-- 7. David E. — Benin (additional) -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-1">KB</div>
+                                <div class="testi-avatar av-1">
+                                    <img src="images/review-david.jpeg" alt="David E." loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Kehinde B.</div>
-                                    <div class="testi-role">FHG Team Member &bull; Abuja</div>
+                                    <div class="testi-name">David E.</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Benin</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">I joined the FHG business through Coach Tosin and within months I was generating consistent income. His mentorship style is practical and fully result-focused. No fluff, no stories, just proven systems that work. I recommend him to anyone serious about building an income online.</p>
+                            <p class="testi-body">I was introduced to Coach Oluwatosin through the FHG community and it was one of the best connections I have made. Before joining, I had tried different online ventures on my own without real structure or guidance, and I kept going in circles. What he provided was clarity, a clear path, practical training, and consistent support. I started seeing results I had never achieved on my own. What I appreciate most is his availability. He is always ready to answer questions and guide you through challenges. My income and confidence in this business have both grown significantly.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
+                        <!-- 8. Maryam A. — Ilorin (additional) -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-2">YB</div>
+                                <div class="testi-avatar av-3">
+                                    <img src="images/review-maryam.jpeg" alt="Maryam A." loading="lazy" onerror="this.style.display='none'">
+                                </div>
                                 <div>
-                                    <div class="testi-name">Yemi B.</div>
-                                    <div class="testi-role">FHG Business Partner &bull; Lagos</div>
+                                    <div class="testi-name">Maryam A.</div>
+                                    <div class="testi-role"><i class="fa-solid fa-location-dot fa-xs"></i> FHG Ilorin</div>
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">What makes Coach Tosin different from every other coach I have worked with is that he actually follows up on you. He doesn't just onboard you and disappear. He checks on your progress, answers questions at odd hours, and celebrates every win with you. That kind of personal touch is incredibly rare in this business.</p>
+                            <p class="testi-body">Joining FHG under Coach Tosin's mentorship was one of the best decisions I made as someone trying to build real income online. I was a complete beginner and felt overwhelmed at the start, but his teaching style made everything approachable. He has a gift for breaking down complex ideas into simple, actionable steps. I started earning within a few months, and the community he built around him is also very supportive. Today I feel more financially grounded and confident in my ability to grow. I am genuinely grateful for his mentorship.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
@@ -2825,11 +3000,11 @@
 
     <!-- FAQ -->
     <section id="faq" class="fade-up" aria-labelledby="faq-heading">
-        <div class="sec-label">FAQ</div>
-        <h2 class="sec-title" id="faq-heading">Common questions<br>about FHG</h2>
+        <div class="sec-label reveal">FAQ</div>
+        <h2 class="sec-title reveal" data-delay="1" id="faq-heading">Common questions<br>about FHG</h2>
         <div class="faq-list">
 
-            <div class="faq-item">
+            <div class="faq-item reveal" data-delay="1">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     What is FHG (Faith Heroic Generation)?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -2839,7 +3014,7 @@
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item reveal" data-delay="2">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     Is FHG free to join?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -2849,7 +3024,7 @@
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item reveal" data-delay="3">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     How does earning work in FHG?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -2859,7 +3034,7 @@
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item reveal" data-delay="4">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     How does Coach Oluwatosin support new FHG members?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -2869,7 +3044,7 @@
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item reveal" data-delay="5">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     Can I join and build FHG from my city?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -2879,7 +3054,7 @@
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item reveal" data-delay="5">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     How long before I start earning?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -2889,7 +3064,7 @@
                 </div>
             </div>
 
-            <div class="faq-item">
+            <div class="faq-item reveal" data-delay="5">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     Is FHG a legitimate, registered organisation?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -2915,16 +3090,16 @@
             </div>
             <span class="q-mark" aria-hidden="true">&ldquo;</span>
             <div class="q-divider" aria-hidden="true"><i class="fa-solid fa-star q-icon"></i></div>
-            <p class="q-text">I have been where you are — confused, unsure where to start, wondering if it is even possible. That journey changed my life and became my purpose. Today I teach and mentor people how to build real skills, activate their potential online, and create income streams that truly transform their lives.</p>
+            <p class="q-text">I have been where you are, confused, unsure where to start, wondering if it is even possible. That journey changed my life and became my purpose. Today I teach and mentor people how to build real skills, activate their potential online, and create income streams that truly transform their lives.</p>
             <div class="q-divider" style="margin-top:28px;margin-bottom:16px;" aria-hidden="true"><i class="fa-solid fa-star q-icon"></i></div>
-            <span class="q-author">— Oluwatosin Adegboye</span>
+            <span class="q-author">Oluwatosin Adegboye</span>
         </div>
     </div>
 
     <!-- CONNECT -->
     <section id="connect" class="fade-up" aria-labelledby="connect-heading">
-        <div class="sec-label">Connect</div>
-        <h2 class="sec-title" id="connect-heading">Find me<br>across the internet</h2>
+        <div class="sec-label reveal">Connect</div>
+        <h2 class="sec-title reveal" data-delay="1" id="connect-heading">Find me<br>across the internet</h2>
         <div class="connect-grid">
             <a href="https://twitter.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="glass social-card s-twitter" aria-label="Follow on Twitter">
                 <div class="s-icon"><i class="fa-brands fa-x-twitter"></i></div>
@@ -3005,7 +3180,7 @@
         <!-- Step 1: Form -->
         <div class="modal-step" id="modal-step-1">
             <div class="modal-title" id="modal-title">Send Me a Message</div>
-            <p class="modal-sub">Fill in your details below. Your message stays private — nothing is stored on any server.</p>
+            <p class="modal-sub">Fill in your details below. Your message stays private. Nothing is stored on any server.</p>
             <div class="form-row">
                 <div>
                     <label class="form-label" for="cf-name">Full Name</label>
@@ -3031,13 +3206,13 @@
             <button class="btn-primary" id="modal-next" style="width:100%;justify-content:center;margin-top:4px;">
                 <i class="fa-solid fa-arrow-right"></i><span>Continue</span>
             </button>
-            <div class="modal-privacy"><i class="fa-solid fa-lock"></i> Your data never leaves your device — 100% private</div>
+            <div class="modal-privacy"><i class="fa-solid fa-lock"></i> Your data never leaves your device. 100% private.</div>
         </div>
 
         <!-- Step 2: Choose channel -->
         <div class="modal-step hidden" id="modal-step-2">
             <div class="modal-title">How do you want to send it?</div>
-            <p class="modal-sub">Your message has been prepared. Choose where to send it — you'll be taken straight there with everything pre-filled.</p>
+            <p class="modal-sub">Your message has been prepared. Choose where to send it and you will be taken straight there with everything pre-filled.</p>
             <div class="modal-preview" id="modal-preview" aria-live="polite"></div>
             <div class="choice-grid">
                 <a class="choice-btn wa" id="send-whatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="Send via WhatsApp">
@@ -3078,8 +3253,8 @@ const roles = [
     'Mobile App Developer',
     'Graphic Designer',
     'Business Coach',
-    'MLM Expert',
-    'Productivity Mentor'
+    'Productivity Mentor',
+    'Network Marketer'
 ];
 let ri = 0, ci = 0, deleting = false;
 const twEl = document.getElementById('tw');
@@ -3178,7 +3353,7 @@ document.addEventListener('keydown', e => {
 const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+document.querySelectorAll('.fade-up, .reveal, .reveal-left, .reveal-right').forEach(el => io.observe(el));
 
 /* ═══════════════════════════════════════════════════════════
    CUSTOM CURSOR
@@ -3596,6 +3771,54 @@ document.addEventListener('keydown', e => {
         e.preventDefault();
         return false;
     }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   ABOUT READ MORE TOGGLE
+═══════════════════════════════════════════════════════════ */
+const aboutReadMoreBtn = document.getElementById('about-read-more');
+const aboutExtra       = document.getElementById('about-extra');
+const aboutReadMoreLbl = document.getElementById('about-read-more-label');
+if (aboutReadMoreBtn && aboutExtra) {
+    aboutReadMoreBtn.addEventListener('click', () => {
+        const isOpen = aboutExtra.classList.toggle('open');
+        aboutReadMoreBtn.classList.toggle('open', isOpen);
+        aboutReadMoreBtn.setAttribute('aria-expanded', isOpen);
+        aboutReadMoreLbl.textContent = isOpen ? 'Show less' : 'Read my full story';
+        if (!isOpen) {
+            // Scroll back up to the about section so collapsed state is visible
+            document.getElementById('about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REVIEW CARD SHUFFLE (random order on each page load)
+═══════════════════════════════════════════════════════════ */
+function shuffleChildren(parent) {
+    const items = [...parent.children];
+    for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+    }
+    items.forEach(el => parent.appendChild(el));
+}
+document.querySelectorAll('.testi-track').forEach(track => shuffleChildren(track));
+
+/* ═══════════════════════════════════════════════════════════
+   CLICKABLE CHAPTER LABELS (individual chapter expand)
+═══════════════════════════════════════════════════════════ */
+document.querySelectorAll('#about-extra .about-chapter').forEach(chapter => {
+    const label = chapter.querySelector('.about-chapter-label');
+    const body  = chapter.querySelector('.about-ch-body');
+    if (!label || !body) return;
+    label.addEventListener('click', () => {
+        const isOpen = chapter.classList.toggle('ch-open');
+        body.classList.toggle('ch-open', isOpen);
+        if (isOpen) {
+            setTimeout(() => chapter.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+        }
+    });
 });
 
 /* ═══════════════════════════════════════════════════════════

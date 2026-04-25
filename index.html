@@ -382,6 +382,9 @@
             0 40px 90px rgba(0,0,0,.55),
             0 0 0 1px rgba(0,198,255,.14),
             0 0 40px rgba(0,133,255,.12) inset;
+        transform: perspective(900px) rotateY(0deg) rotateX(0deg);
+        transition: transform 0.55s cubic-bezier(.2,.8,.2,1), box-shadow 0.55s ease;
+        will-change: transform;
     }
     /* Decorative corner accents */
     .slider-frame::after {
@@ -806,31 +809,55 @@
     /* ═══════════════════════════════════════════════════════════════
        QUOTE
     ═══════════════════════════════════════════════════════════════ */
-    .quote-section { padding: 40px 20px 80px; max-width: 1000px; margin: 0 auto; }
-    .quote-box { padding: 68px 60px; text-align: center; }
-    .q-mark {
-        display: block;
-        font-size: 100px;
-        line-height: .5;
-        color: var(--blue);
-        opacity: .18;
-        font-family: Georgia, serif;
-        margin-bottom: 30px;
+    .quote-section { padding: 40px 20px 80px; max-width: 860px; margin: 0 auto; }
+    .quote-box { padding: 0; overflow: hidden; text-align: center; }
+    .q-top-bar {
+        height: 2px;
+        background: linear-gradient(90deg, transparent 0%, var(--blue) 30%, var(--sky) 70%, transparent 100%);
     }
+    .q-inner { padding: 44px 64px 52px; position: relative; z-index: 1; }
+    .q-icon-row {
+        display: flex; align-items: center; justify-content: center;
+        gap: 18px; margin-bottom: 28px;
+    }
+    .q-icon-row::before, .q-icon-row::after {
+        content: '';
+        flex: 1; max-width: 64px; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0,198,255,.35));
+    }
+    .q-icon-row::after { background: linear-gradient(90deg, rgba(0,198,255,.35), transparent); }
+    .q-icon-mark { font-size: 20px; color: var(--blue); opacity: .55; }
     .q-text {
-        font-size: clamp(18px, 2.6vw, 23px);
-        font-weight: 500;
-        line-height: 1.7;
+        font-size: clamp(16px, 2.2vw, 20px);
+        font-weight: 400;
+        font-style: italic;
+        line-height: 1.82;
         color: var(--text);
-        max-width: 600px;
-        margin: 0 auto 26px;
+        max-width: 620px;
+        margin: 0 auto 38px;
+        font-family: 'Inter', sans-serif;
+    }
+    .q-text em { font-style: normal; color: var(--sky); font-weight: 600; }
+    .q-signature {
+        display: flex; align-items: center; justify-content: center; gap: 14px;
     }
     .q-author {
-        font-size: 11px;
-        color: var(--sky);
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
+        font-size: 14px; font-weight: 700;
+        color: var(--text);
+        display: block;
+        text-align: left;
+    }
+    .q-role-tag {
+        font-size: 11px; color: var(--text-muted);
+        font-family: 'Inter', sans-serif;
+        letter-spacing: .3px;
+        display: block; text-align: left; margin-top: 2px;
+    }
+    .q-bottom-glow {
+        height: 80px;
+        background: radial-gradient(ellipse at 50% 100%, rgba(0,133,255,.1) 0%, transparent 70%);
+        margin-top: -10px;
+        pointer-events: none;
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -930,7 +957,7 @@
         .brand-body { display: flex; flex-direction: column; align-items: center; }
         .brand-desc { text-align: left; }
         .about-card { padding: 34px 28px; }
-        .quote-box { padding: 48px 28px; }
+        .q-inner { padding: 36px 28px 40px; }
         .about-text {font-size: 14px;}
     }
     @media (max-width: 640px) {
@@ -938,6 +965,20 @@
         .connect-grid { grid-template-columns: 1fr 1fr; }
         nav { padding: 8px 12px 8px 16px; }
         .nav-name { font-size: 12px; }
+        /* Pills: 2-per-row on mobile */
+        .pills {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .pill {
+            font-size: 10.5px;
+            padding: 7px 12px;
+            gap: 5px;
+            letter-spacing: 0;
+            border-radius: 10px;
+            justify-content: center;
+        }
     }
     @media (max-width: 420px) {
         .services-grid { grid-template-columns: 1fr; }
@@ -1456,33 +1497,13 @@
     /* ═══════════════════════════════════════════════════════════════
        QUOTE UPGRADES
     ═══════════════════════════════════════════════════════════════ */
-    .quote-box {
-        position: relative;
-        overflow: hidden;
-    }
+    .quote-box { position: relative; }
     .quote-box::after {
         content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse at 50% -10%, rgba(0,133,255,.1) 0%, transparent 65%);
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 50% 0%, rgba(0,133,255,.07) 0%, transparent 60%);
         pointer-events: none;
     }
-    .q-divider {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        justify-content: center;
-        margin-bottom: 28px;
-    }
-    .q-divider::before, .q-divider::after {
-        content: '';
-        flex: 1;
-        max-width: 80px;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(0,198,255,.4));
-    }
-    .q-divider::after { background: linear-gradient(90deg, rgba(0,198,255,.4), transparent); }
-    .q-icon { color: var(--sky); font-size: 12px; opacity: .6; }
 
     /* ═══════════════════════════════════════════════════════════════
        CONNECT UPGRADES
@@ -1857,15 +1878,15 @@
     /* ═══════════════════════════════════════════════════════════════
        QUOTE SECTION — AVATAR
     ═══════════════════════════════════════════════════════════════ */
-    .q-avatar-wrap { margin-bottom: 22px; }
+    .q-avatar-wrap { flex-shrink: 0; }
     .q-avatar {
-        width: 74px; height: 74px; border-radius: 50%;
-        border: 3px solid rgba(0,198,255,.4);
-        overflow: hidden; margin: 0 auto;
-        box-shadow: 0 0 0 6px rgba(0,133,255,.1), 0 8px 24px rgba(0,0,0,.35);
+        width: 52px; height: 52px; border-radius: 50%;
+        border: 2px solid rgba(0,198,255,.38);
+        overflow: hidden;
+        box-shadow: 0 0 0 4px rgba(0,133,255,.1), 0 4px 16px rgba(0,0,0,.28);
         background: linear-gradient(135deg, rgba(0,133,255,.18), rgba(0,198,255,.1));
         display: flex; align-items: center; justify-content: center;
-        font-size: 24px; color: var(--sky);
+        font-size: 20px; color: var(--sky);
     }
     .q-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 
@@ -2653,7 +2674,7 @@
                 <div class="pt-banner-glow2" aria-hidden="true"></div>
                 <div class="pt-banner-inner">
                     <div class="pt-badge">
-                        <img src="images/pt-logo.png" alt="PaulTechnolog Logo" loading="lazy" onerror="this.style.display='none'">
+                        <img src="images/pt-logo.png" alt="PaulTechnolog Logo" loading="lazy" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
                         <span>PT</span>
                     </div>
                     <div class="pt-banner-text">
@@ -3082,17 +3103,26 @@
     <!-- QUOTE -->
     <div class="quote-section fade-up" aria-label="Personal quote">
         <div class="glass quote-box">
-            <div class="q-avatar-wrap">
-                <div class="q-avatar">
-                    <img src="images/tosco2.png" alt="Oluwatosin Adegboye" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                    <i class="fa-solid fa-user" style="display:none;"></i>
+            <div class="q-top-bar" aria-hidden="true"></div>
+            <div class="q-inner">
+                <div class="q-icon-row" aria-hidden="true">
+                    <i class="fa-solid fa-quote-left q-icon-mark"></i>
+                </div>
+                <p class="q-text">I have been where you are, confused, unsure where to start, wondering if it is even possible. That journey changed my life and became my purpose. Today I teach and mentor people how to build <em>real skills</em>, activate their potential online, and create income streams that truly transform their lives.</p>
+                <div class="q-signature">
+                    <div class="q-avatar-wrap">
+                        <div class="q-avatar">
+                            <img src="images/tosco2.png" alt="Oluwatosin Adegboye" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <i class="fa-solid fa-user" style="display:none;"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="q-author">Oluwatosin Adegboye</span>
+                        <span class="q-role-tag">Developer &middot; Designer &middot; Business Coach</span>
+                    </div>
                 </div>
             </div>
-            <span class="q-mark" aria-hidden="true">&ldquo;</span>
-            <div class="q-divider" aria-hidden="true"><i class="fa-solid fa-star q-icon"></i></div>
-            <p class="q-text">I have been where you are, confused, unsure where to start, wondering if it is even possible. That journey changed my life and became my purpose. Today I teach and mentor people how to build real skills, activate their potential online, and create income streams that truly transform their lives.</p>
-            <div class="q-divider" style="margin-top:28px;margin-bottom:16px;" aria-hidden="true"><i class="fa-solid fa-star q-icon"></i></div>
-            <span class="q-author">Oluwatosin Adegboye</span>
+            <div class="q-bottom-glow" aria-hidden="true"></div>
         </div>
     </div>
 
@@ -3307,6 +3337,30 @@ document.querySelectorAll('.slide img').forEach((img, i) => {
             `<div class="slide-placeholder"><i class="fa-solid ${icons[i] || 'fa-user-tie'}"></i><span>Photo ${i + 1}</span></div>`;
     });
 });
+
+/* ═══════════════════════════════════════════════════════════
+   HERO CARD 3D TILT (desktop only)
+═══════════════════════════════════════════════════════════ */
+(function() {
+    if (window.innerWidth <= 880) return;
+    const wrap  = document.querySelector('.slider-wrap');
+    const tiltFrame = document.querySelector('.slider-frame');
+    if (!wrap || !tiltFrame) return;
+    const MAX_X = 6, MAX_Y = 8;
+    wrap.addEventListener('mousemove', e => {
+        const rect = wrap.getBoundingClientRect();
+        const nx = ((e.clientX - rect.left) / rect.width  - 0.5);
+        const ny = ((e.clientY - rect.top)  / rect.height - 0.5);
+        tiltFrame.style.transition = 'transform 0.12s ease, box-shadow 0.12s ease';
+        tiltFrame.style.transform  = `perspective(900px) rotateY(${nx * MAX_Y}deg) rotateX(${-ny * MAX_X}deg) scale(1.015)`;
+        tiltFrame.style.boxShadow  = `${-nx * 20}px ${ny * 14 + 40}px 90px rgba(0,0,0,.6), 0 0 0 1px rgba(0,198,255,.18), 0 0 40px rgba(0,133,255,.18) inset`;
+    });
+    wrap.addEventListener('mouseleave', () => {
+        tiltFrame.style.transition = 'transform 0.55s cubic-bezier(.2,.8,.2,1), box-shadow 0.55s ease';
+        tiltFrame.style.transform  = 'perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)';
+        tiltFrame.style.boxShadow  = '';
+    });
+})();
 
 /* ═══════════════════════════════════════════════════════════
    DARK / LIGHT THEME TOGGLE

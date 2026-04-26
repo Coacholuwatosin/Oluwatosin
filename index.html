@@ -1251,15 +1251,37 @@
     .testi-card:hover { transform: translateY(-6px); border-color: var(--border-h); box-shadow: 0 22px 48px var(--shadow); }
     .testi-top { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; position: relative; z-index: 1; }
     .testi-avatar {
-        width: 58px; height: 58px; border-radius: 50%; flex-shrink: 0;
-        background: linear-gradient(135deg, rgba(0,133,255,.2), rgba(0,198,255,.08));
-        border: 2px solid rgba(0,133,255,.25);
+        width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+        background: linear-gradient(135deg, rgba(0,133,255,.25), rgba(0,198,255,.12));
         display: flex; align-items: center; justify-content: center;
-        font-size: 18px; font-weight: 800; color: var(--sky);
-        overflow: hidden;
+        font-size: 15px; font-weight: 800; color: #fff;
+        position: relative; overflow: visible;
+        isolation: isolate;
+        box-shadow: 0 6px 18px rgba(0,0,0,.28);
+    }
+    /* Gradient ring via conic-gradient mask technique */
+    .testi-avatar::after {
+        content: '';
+        position: absolute;
+        inset: -3px;
+        border-radius: 50%;
+        padding: 3px;
+        background: conic-gradient(from 45deg,
+            #0085ff 0%, #00c6ff 25%, #8b5cf6 50%, #ec4899 75%, #0085ff 100%);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                      linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box,
+              linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: -1;
     }
     .testi-avatar img {
-        width: 100%; height: 100%; object-fit: cover; object-position: center top;
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center top;
+        border-radius: 50%;
         display: block;
     }
     .testi-name { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 3px; letter-spacing: -.2px; }
@@ -1470,12 +1492,14 @@
     /* ═══════════════════════════════════════════════════════════════
        TESTIMONIALS UPGRADES
     ═══════════════════════════════════════════════════════════════ */
-    .testi-avatar.av-1 { background: linear-gradient(135deg,#0085ff,#00c6ff); color:#fff; border:none; }
-    .testi-avatar.av-2 { background: linear-gradient(135deg,#8b5cf6,#a78bfa); color:#fff; border:none; }
-    .testi-avatar.av-3 { background: linear-gradient(135deg,#22c55e,#4ade80); color:#fff; border:none; }
-    .testi-avatar.av-4 { background: linear-gradient(135deg,#f59e0b,#fbbf24); color:#fff; border:none; }
-    .testi-avatar.av-5 { background: linear-gradient(135deg,#ef4444,#f87171); color:#fff; border:none; }
-    .testi-avatar.av-6 { background: linear-gradient(135deg,#0ea5e9,#38bdf8); color:#fff; border:none; }
+    .testi-avatar.av-1 { background: linear-gradient(135deg,#0085ff,#00c6ff); }
+    .testi-avatar.av-2 { background: linear-gradient(135deg,#8b5cf6,#a78bfa); }
+    .testi-avatar.av-3 { background: linear-gradient(135deg,#22c55e,#4ade80); }
+    .testi-avatar.av-4 { background: linear-gradient(135deg,#f59e0b,#fbbf24); }
+    .testi-avatar.av-5 { background: linear-gradient(135deg,#ef4444,#f87171); }
+    .testi-avatar.av-6 { background: linear-gradient(135deg,#0ea5e9,#38bdf8); }
+    .testi-avatar.av-7 { background: linear-gradient(135deg,#ec4899,#f472b6); }
+    .testi-avatar.av-8 { background: linear-gradient(135deg,#10b981,#34d399); }
     .testi-stars { font-size: 13px; letter-spacing: 3px; margin-bottom: 16px; }
     .testi-card {
         position: relative;
@@ -1723,27 +1747,41 @@
 
     /* ── Read more button ── */
     .about-read-more {
-        display: flex; align-items: center; justify-content: center; gap: 10px;
-        width: 100%; margin-top: 24px; padding: 14px 28px;
-        background: linear-gradient(135deg, rgba(0,133,255,.10), rgba(0,198,255,.06));
-        border: 1px solid rgba(0,198,255,.22);
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        width: auto; margin-top: 24px; padding: 13px 32px;
+        background: rgba(255,255,255,.10);
+        backdrop-filter: blur(18px) saturate(1.5);
+        -webkit-backdrop-filter: blur(18px) saturate(1.5);
+        border: 1px solid rgba(255,255,255,.20);
+        border-top-color: rgba(255,255,255,.36);
+        border-left-color: rgba(255,255,255,.28);
         border-radius: 50px; cursor: pointer;
-        color: var(--sky); font-size: 13px; font-weight: 700; letter-spacing: .4px;
+        color: rgba(255,255,255,.9); font-size: 12px; font-weight: 700; letter-spacing: .6px;
         font-family: 'Space Grotesk', sans-serif;
-        transition: all .3s; position: relative; z-index: 1;
-        box-shadow: 0 2px 14px rgba(0,133,255,.08);
+        transition: all .3s ease; position: relative; z-index: 1;
+        align-self: center;
+        box-shadow:
+            0 6px 22px rgba(0,0,0,.18),
+            0 1px 0 rgba(255,255,255,.18) inset,
+            0 -1px 0 rgba(0,0,0,.12) inset;
     }
     .about-read-more:hover {
-        background: linear-gradient(135deg, rgba(0,133,255,.18), rgba(0,198,255,.12));
-        border-color: rgba(0,198,255,.4);
-        box-shadow: 0 6px 22px rgba(0,133,255,.18);
+        background: rgba(255,255,255,.17);
+        border-color: rgba(255,255,255,.32);
         transform: translateY(-2px);
+        box-shadow:
+            0 10px 30px rgba(0,0,0,.22),
+            0 1px 0 rgba(255,255,255,.24) inset,
+            0 -1px 0 rgba(0,0,0,.12) inset;
     }
     .about-read-more i { font-size: 11px; transition: transform .35s; }
     .about-read-more.open i.chevron { transform: rotate(180deg); }
     [data-theme="light"] .about-read-more {
-        background: rgba(0,133,255,.07);
-        border-color: rgba(0,133,255,.22);
+        background: rgba(4,9,26,.08);
+        border-color: rgba(4,9,26,.12);
+        border-top-color: rgba(255,255,255,.6);
+        color: var(--text);
+        box-shadow: 0 4px 16px rgba(0,0,0,.08), 0 1px 0 rgba(255,255,255,.9) inset;
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -2626,7 +2664,7 @@
         <div class="sec-label reveal">What I Do</div>
         <h2 class="sec-title reveal" data-delay="1" id="services-heading">How I create<br>value for people</h2>
         <div class="services-grid">
-            <div class="glass svc-card fade-up d1">
+            <div class="glass svc-card reveal-left" data-delay="1">
                 <span class="svc-num" aria-hidden="true">01</span>
                 <div class="svc-icon c-blue"><i class="fa-solid fa-code"></i></div>
                 <div class="svc-divider" style="color:#38bdf8"></div>
@@ -2634,7 +2672,7 @@
                 <p class="svc-desc">I build modern websites that look professional, load fast, and give visitors a seamless experience. Each site is designed to help you grow your business, attract clients, and stand out online.</p>
                 <button class="svc-cta open-modal-btn" type="button">Get a quote <i class="fa-solid fa-arrow-right"></i></button>
             </div>
-            <div class="glass svc-card fade-up d2">
+            <div class="glass svc-card reveal" data-delay="2">
                 <span class="svc-num" aria-hidden="true">02</span>
                 <div class="svc-icon c-purple"><i class="fa-solid fa-mobile-screen-button"></i></div>
                 <div class="svc-divider" style="color:#a78bfa"></div>
@@ -2642,7 +2680,7 @@
                 <p class="svc-desc">I develop cross-platform mobile apps that feel intuitive, run smoothly on every device, and help you achieve real results, whether it’s engagement, sales, or productivity.</p>
                 <button class="svc-cta open-modal-btn" type="button">Get a quote <i class="fa-solid fa-arrow-right"></i></button>
             </div>
-            <div class="glass svc-card fade-up d3">
+            <div class="glass svc-card reveal-right" data-delay="3">
                 <span class="svc-num" aria-hidden="true">03</span>
                 <div class="svc-icon c-green"><i class="fa-solid fa-palette"></i></div>
                 <div class="svc-divider" style="color:#4ade80"></div>
@@ -2650,7 +2688,7 @@
                 <p class="svc-desc">I craft brand identities and marketing visuals that don’t just look good, they capture attention, tell your purpose, and inspire your targeted audience to action.</p>
                 <button class="svc-cta open-modal-btn" type="button">Book a session <i class="fa-solid fa-arrow-right"></i></button>
             </div>
-            <div class="glass svc-card fade-up">
+            <div class="glass svc-card reveal" data-delay="4">
                 <span class="svc-num" aria-hidden="true">04</span>
                 <div class="svc-icon c-orange"><i class="fa-solid fa-trophy"></i></div>
                 <div class="svc-divider" style="color:#fb923c"></div>
@@ -2733,19 +2771,19 @@
     <section class="fade-up" aria-label="Key stats">
         <div class="glass" style="overflow:hidden;">
             <div class="stats-grid">
-                <div class="stat-item">
+                <div class="stat-item reveal-left" data-delay="1">
                     <div class="stat-num" data-target="6" data-suffix="+">0</div>
                     <div class="stat-label">Years of Experience</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item reveal" data-delay="2">
                     <div class="stat-num" data-target="278" data-suffix="+">0</div>
                     <div class="stat-label">People Mentored</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item reveal" data-delay="3">
                     <div class="stat-num" data-target="5" data-suffix="">0</div>
                     <div class="stat-label">Core Disciplines</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item reveal-right" data-delay="4">
                     <div class="stat-num" data-target="64" data-suffix="+">0</div>
                     <div class="stat-label">Projects Delivered</div>
                 </div>
@@ -2863,14 +2901,14 @@
                                 </div>
                             </div>
                             <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                            <p class="testi-body">Working with Mr Tosin has been a great experience for me. He has been more than a trainer, he has been a guide, mentor, and true coach. What I appreciate most is that he doesn't just teach you a skill, he guides you until you are confident enough to do it expertly on your own. Even in my freelancing journey, his guidance helped shape my understanding and growth. His goal is not just for you to learn from him, but for you to become skilled and independent. That kind of coaching is rare. He is patient, practical, and committed to seeing his students succeed. I highly recommend him.</p>
+                            <p class="testi-body">Mr Tosin's training and support have been a rewarding experience for me in the business. He has been more than a trainer, he has been a guide, mentor, and true coach. What I appreciate most is that he doesn't just teach you a skill, he guides you until you are confident enough to do it expertly on your own. Even in my freelancing journey, his guidance helped shape my understanding and growth. His goal is not just for you to learn from him, but for you to become skilled and independent. That kind of coaching is rare. He is patient, practical, and committed to seeing his students succeed. I highly recommend him.</p>
                             <div class="testi-verified"><i class="fa-solid fa-circle-check"></i> Verified FHG Partner</div>
                         </div>
 
                         <!-- 7. David E. — Benin (additional) -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-1">
+                                <div class="testi-avatar av-7">
                                     <img src="images/review-david.jpeg" alt="David E." loading="lazy" onerror="this.style.display='none'">
                                 </div>
                                 <div>
@@ -2886,7 +2924,7 @@
                         <!-- 8. Maryam A. — Ilorin (additional) -->
                         <div class="glass testi-card">
                             <div class="testi-top">
-                                <div class="testi-avatar av-3">
+                                <div class="testi-avatar av-8">
                                     <img src="images/review-maryam.jpeg" alt="Maryam A." loading="lazy" onerror="this.style.display='none'">
                                 </div>
                                 <div>
@@ -3025,7 +3063,7 @@
         <h2 class="sec-title reveal" data-delay="1" id="faq-heading">Common questions<br>about FHG</h2>
         <div class="faq-list">
 
-            <div class="faq-item reveal" data-delay="1">
+            <div class="faq-item reveal-left" data-delay="1">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     What is FHG (Faith Heroic Generation)?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -3035,7 +3073,7 @@
                 </div>
             </div>
 
-            <div class="faq-item reveal" data-delay="2">
+            <div class="faq-item reveal-right" data-delay="1">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     Is FHG free to join?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -3045,7 +3083,7 @@
                 </div>
             </div>
 
-            <div class="faq-item reveal" data-delay="3">
+            <div class="faq-item reveal-left" data-delay="2">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     How does earning work in FHG?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -3055,7 +3093,7 @@
                 </div>
             </div>
 
-            <div class="faq-item reveal" data-delay="4">
+            <div class="faq-item reveal-right" data-delay="2">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     How does Coach Oluwatosin support new FHG members?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -3065,7 +3103,7 @@
                 </div>
             </div>
 
-            <div class="faq-item reveal" data-delay="5">
+            <div class="faq-item reveal-left" data-delay="3">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     Can I join and build FHG from my city?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -3075,7 +3113,7 @@
                 </div>
             </div>
 
-            <div class="faq-item reveal" data-delay="5">
+            <div class="faq-item reveal-right" data-delay="3">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     How long before I start earning?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -3085,7 +3123,7 @@
                 </div>
             </div>
 
-            <div class="faq-item reveal" data-delay="5">
+            <div class="faq-item reveal-left" data-delay="4">
                 <div class="faq-q" role="button" tabindex="0" aria-expanded="false">
                     Is FHG a legitimate, registered organisation?
                     <span class="faq-chevron" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
@@ -3131,37 +3169,37 @@
         <div class="sec-label reveal">Connect</div>
         <h2 class="sec-title reveal" data-delay="1" id="connect-heading">Find me<br>across the internet</h2>
         <div class="connect-grid">
-            <a href="https://twitter.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="glass social-card s-twitter" aria-label="Follow on Twitter">
+            <a href="https://twitter.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="glass social-card s-twitter reveal-left" data-delay="1" aria-label="Follow on Twitter">
                 <div class="s-icon"><i class="fa-brands fa-x-twitter"></i></div>
                 <span class="s-name">Twitter / X</span>
                 <span class="s-handle">@coacholuwatosin</span>
                 <span class="s-count">Follow &rarr;</span>
             </a>
-            <a href="https://facebook.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="glass social-card s-facebook" aria-label="Connect on Facebook">
+            <a href="https://facebook.com/coacholuwatosin" target="_blank" rel="noopener noreferrer" class="glass social-card s-facebook reveal" data-delay="2" aria-label="Connect on Facebook">
                 <div class="s-icon"><i class="fa-brands fa-facebook-f"></i></div>
                 <span class="s-name">Facebook</span>
                 <span class="s-handle">coacholuwatosin</span>
                 <span class="s-count">Connect &rarr;</span>
             </a>
-            <a href="https://www.linkedin.com/in/oluwatosin-adegboye" target="_blank" rel="noopener noreferrer" class="glass social-card s-linkedin" aria-label="Connect on LinkedIn">
+            <a href="https://www.linkedin.com/in/oluwatosin-adegboye" target="_blank" rel="noopener noreferrer" class="glass social-card s-linkedin reveal-right" data-delay="1" aria-label="Connect on LinkedIn">
                 <div class="s-icon"><i class="fa-brands fa-linkedin-in"></i></div>
                 <span class="s-name">LinkedIn</span>
                 <span class="s-handle">oluwatosin-adegboye</span>
                 <span class="s-count">Connect &rarr;</span>
             </a>
-            <a href="https://bit.ly/OA-Youtube-Channel" target="_blank" rel="noopener noreferrer" class="glass social-card s-youtube" aria-label="Subscribe on YouTube">
+            <a href="https://bit.ly/OA-Youtube-Channel" target="_blank" rel="noopener noreferrer" class="glass social-card s-youtube reveal-left" data-delay="2" aria-label="Subscribe on YouTube">
                 <div class="s-icon"><i class="fa-brands fa-youtube"></i></div>
                 <span class="s-name">YouTube</span>
                 <span class="s-handle">Coach Oluwatosin</span>
                 <span class="s-count">Subscribe &rarr;</span>
             </a>
-            <a href="https://bit.ly/OA-Connect" target="_blank" rel="noopener noreferrer" class="glass social-card s-whatsapp" aria-label="Connect on WhatsApp">
+            <a href="https://bit.ly/OA-Connect" target="_blank" rel="noopener noreferrer" class="glass social-card s-whatsapp reveal" data-delay="3" aria-label="Connect on WhatsApp">
                 <div class="s-icon"><i class="fa-brands fa-whatsapp"></i></div>
                 <span class="s-name">WhatsApp</span>
                 <span class="s-handle">Connect with me</span>
                 <span class="s-count">Chat now &rarr;</span>
             </a>
-            <a href="https://www.quora.com/profile/Oluwatosin-Adegboye-1" target="_blank" rel="noopener noreferrer" class="glass social-card s-quora" aria-label="Follow on Quora">
+            <a href="https://www.quora.com/profile/Oluwatosin-Adegboye-1" target="_blank" rel="noopener noreferrer" class="glass social-card s-quora reveal-right" data-delay="3" aria-label="Follow on Quora">
                 <div class="s-icon"><i class="fa-brands fa-quora"></i></div>
                 <span class="s-name">Quora</span>
                 <span class="s-handle">Oluwatosin Adegboye</span>

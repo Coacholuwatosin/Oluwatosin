@@ -663,26 +663,39 @@
     .divider {
         width: 100%;
         height: 1px;
-        background: linear-gradient(90deg, transparent, var(--border), transparent);
+        background: linear-gradient(90deg, transparent 0%, rgba(0,198,255,.3) 30%, rgba(0,133,255,.18) 70%, transparent 100%);
         margin: 36px 0;
     }
-    .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pills-label {
+        font-size: 9.5px; font-weight: 800;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        color: rgba(255,255,255,.28);
+        margin-bottom: 12px; width: 100%;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
     .pill {
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        background: rgba(0,133,255,.07);
-        border: 1px solid rgba(0,133,255,.16);
-        border-radius: 50px;
-        padding: 9px 20px;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--sky);
-        transition: all .3s;
+        background: rgba(255,255,255,.03);
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: rgba(255,255,255,.72);
+        transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
         cursor: default;
         letter-spacing: .2px;
     }
-    .pill:hover { background: rgba(0,133,255,.16); border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,133,255,.18); }
+    .pill i { color: rgba(0,198,255,.7); font-size: 11px; }
+    .pill:hover {
+        background: rgba(0,198,255,.09);
+        border-color: rgba(0,198,255,.22);
+        color: rgba(200,238,255,.95);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(0,198,255,.10);
+    }
 
     /* ═══════════════════════════════════════════════════════════════
        SERVICES
@@ -1370,21 +1383,7 @@
     /* ═══════════════════════════════════════════════════════════════
        ABOUT UPGRADES
     ═══════════════════════════════════════════════════════════════ */
-    .about-text {
-        border-left: 2px solid transparent;
-        padding-left: 18px;
-        margin-left: -18px;
-        transition: border-color .3s;
-    }
-    .about-text:hover { border-left-color: rgba(0,198,255,.35); }
-    /* Colored pills */
-    .pill-blue   { background: rgba(0,133,255,.09);   border-color: rgba(0,133,255,.22);   color: #60a5fa !important; }
-    .pill-purple { background: rgba(139,92,246,.09);  border-color: rgba(139,92,246,.22);  color: #a78bfa !important; }
-    .pill-green  { background: rgba(34,197,94,.09);   border-color: rgba(34,197,94,.22);   color: #4ade80 !important; }
-    .pill-orange { background: rgba(249,115,22,.09);  border-color: rgba(249,115,22,.22);  color: #fb923c !important; }
-    .pill-red    { background: rgba(239,68,68,.09);   border-color: rgba(239,68,68,.22);   color: #f87171 !important; }
-    .pill-cyan   { background: rgba(6,182,212,.09);   border-color: rgba(6,182,212,.22);   color: #22d3ee !important; }
-    .pill-blue   i, .pill-purple i, .pill-green i, .pill-orange i, .pill-red i, .pill-cyan i { color: inherit !important; }
+    .about-text { transition: all 0.3s cubic-bezier(0.16,1,0.3,1); }
 
     /* ═══════════════════════════════════════════════════════════════
        SERVICES UPGRADES
@@ -1630,110 +1629,129 @@
     }
     .about-card::after {
         content: '';
-        position: absolute; bottom: -80px; left: -80px;
+        position: absolute; bottom: -70px; left: -70px;
         width: 260px; height: 260px; border-radius: 50%;
-        background: radial-gradient(circle, rgba(139,92,246,.08) 0%, transparent 65%);
+        background: radial-gradient(circle, rgba(139,92,246,.06) 0%, transparent 65%);
         pointer-events: none;
     }
 
-    /* ── Journey layout ── */
-    .about-journey { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; }
+    /* ── Journey layout — single unified vertical dashed line ── */
+    .about-journey { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; padding-left: 28px; }
+    .about-journey::before {
+        content: '';
+        position: absolute;
+        left: 5px; top: 14px; bottom: 28px;
+        width: 2px;
+        background: linear-gradient(to bottom, rgba(0,198,255,.55) 0%, rgba(0,133,255,.22) 55%, transparent 100%);
+    }
 
     .about-chapter {
         position: relative;
-        padding-left: 68px;
-        padding-bottom: 36px;
-        padding-top: 4px;
-        transition: background .3s;
+        padding-left: 22px; padding-right: 10px;
+        padding-bottom: 40px;
+        padding-top: 2px;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
     }
-    /* Timeline connector — dashed with chapter color */
-    .about-chapter::before {
-        content: '';
-        position: absolute;
-        left: 18px; top: 42px; bottom: 0;
-        width: 2px;
-        background: repeating-linear-gradient(
-            180deg,
-            var(--chapter-clr, rgba(0,198,255,.3)) 0px,
-            var(--chapter-clr, rgba(0,198,255,.3)) 6px,
-            transparent 6px,
-            transparent 12px
-        );
-    }
+    .about-chapter::before { display: none; }
     .about-chapter:last-child { padding-bottom: 0; }
-    .about-chapter:last-child::before { display: none; }
-
-    /* ── Numbered marker with outer ring ── */
-    .about-chapter-marker {
-        position: absolute; left: 0; top: 2px;
-        width: 38px; height: 38px; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 13px; font-weight: 900; color: #fff; flex-shrink: 0;
-        box-shadow:
-            0 6px 22px var(--chapter-shadow, rgba(0,133,255,.45)),
-            0 0 0 5px var(--chapter-ring, rgba(0,133,255,.10));
-        transition: transform .3s ease, box-shadow .3s ease;
-    }
-    .about-chapter:hover .about-chapter-marker {
-        transform: scale(1.12);
-        box-shadow:
-            0 8px 28px var(--chapter-shadow, rgba(0,133,255,.6)),
-            0 0 0 7px var(--chapter-ring, rgba(0,133,255,.15));
+    .about-chapter:hover .about-chapter-label {
+        background: rgba(0,198,255,.12);
+        border-color: rgba(0,198,255,.24);
+        color: rgba(160,222,255,1);
     }
 
-    /* ── Chapter header label ── */
+    /* ── Dot indicators ── */
+    .about-dot {
+        position: absolute;
+        left: -28px; top: 4px;
+        width: 12px; height: 12px;
+        border-radius: 50%;
+        z-index: 2;
+    }
+    .about-dot.is-active {
+        background: radial-gradient(circle at 35% 35%, #7ee8fa, #00c6ff);
+        box-shadow: 0 0 0 3px rgba(0,198,255,.15), 0 0 14px rgba(0,198,255,.5);
+        animation: about-dot-pulse 2.8s ease-in-out infinite;
+    }
+    @keyframes about-dot-pulse {
+        0%, 100% { box-shadow: 0 0 0 3px rgba(0,198,255,.15), 0 0 14px rgba(0,198,255,.45); }
+        50% { box-shadow: 0 0 0 6px rgba(0,198,255,.07), 0 0 24px rgba(0,198,255,.65); }
+    }
+    .about-dot.is-inactive {
+        background: rgba(255,255,255,.18);
+        border: 1px solid rgba(255,255,255,.12);
+    }
+    #about-extra.open .about-dot.is-inactive {
+        background: rgba(0,198,255,.35);
+        box-shadow: 0 0 8px rgba(0,198,255,.25);
+        border: none;
+    }
+
+    /* ── Chapter eyebrow label ── */
     .about-chapter-label {
         font-size: 10px; font-weight: 800;
-        letter-spacing: 2.8px; text-transform: uppercase;
-        color: var(--sky);
+        letter-spacing: 0.09em; text-transform: uppercase;
+        color: rgba(120,195,255,.9);
         margin-bottom: 16px;
-        display: flex; align-items: center; gap: 10px;
-        opacity: .95;
+        display: inline-flex; align-items: center; gap: 7px;
+        background: rgba(0,198,255,.07);
+        border: 1px solid rgba(0,198,255,.15);
+        border-radius: 20px;
+        padding: 5px 13px 5px 10px;
+        width: fit-content;
+        transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
     }
-    .about-chapter-label::after {
-        content: '';
-        flex: 1; max-width: 52px; height: 1px;
-        background: linear-gradient(90deg, rgba(0,198,255,.45), transparent);
-    }
+    .about-chapter-label i { font-size: 9px; color: rgba(0,198,255,.75); }
 
     /* ── Paragraph text ── */
-    .about-intro-text { font-size: 16px !important; line-height: 1.92 !important; }
+    .about-intro-text { font-size: 16px !important; line-height: 1.7 !important; }
+    .about-text { line-height: 1.7; }
 
-    /* ── Callout highlight (chapter 3 green) ── */
+    /* ── Callout highlight (chapter 3) — unified blue ── */
     .about-callout {
-        background: linear-gradient(135deg, rgba(34,197,94,.09), rgba(34,197,94,.03));
-        border: 1px solid rgba(34,197,94,.18);
-        border-left: 3px solid rgba(34,197,94,.6);
-        border-radius: 0 16px 16px 0;
-        padding: 20px 24px;
+        background: rgba(0,133,255,.055);
+        border: 1px solid rgba(0,198,255,.16);
+        border-left: 3px solid rgba(0,198,255,.62);
+        border-radius: 0 14px 14px 0;
+        padding: 20px 24px 20px 34px;
         font-style: italic; line-height: 1.8;
         margin-bottom: 12px;
-        position: relative;
+        position: relative; overflow: hidden;
     }
     .about-callout::before {
         content: '\201C';
-        position: absolute; left: 14px; top: 10px;
-        font-size: 28px; line-height: 1;
-        color: rgba(34,197,94,.4);
+        position: absolute; left: 11px; top: 0px;
+        font-size: 46px; line-height: 1;
+        color: rgba(0,198,255,.17);
         font-family: Georgia, serif; font-style: normal;
     }
-    .about-callout.about-text { border-left-color: rgba(34,197,94,.6) !important; }
-
-    /* ── Mission block (chapter 5 pink) ── */
-    .about-mission {
-        background: linear-gradient(135deg, rgba(236,72,153,.07), rgba(244,114,182,.03));
-        border: 1px solid rgba(236,72,153,.14);
-        border-radius: 16px;
-        padding: 20px 24px;
-        margin-bottom: 12px; line-height: 1.8;
+    .about-callout::after {
+        content: '';
+        position: absolute; top: 0; right: 0; bottom: 0;
+        width: 50%;
+        background: linear-gradient(to right, transparent, rgba(0,198,255,.04));
+        pointer-events: none;
     }
+    .about-callout.about-text { border-left-color: rgba(0,198,255,.62) !important; }
 
-    /* ── Per-chapter color tokens ── */
-    .about-journey > .about-chapter:nth-child(1) { --chapter-clr: rgba(0,133,255,.38);  --chapter-shadow: rgba(0,133,255,.55); --chapter-ring: rgba(0,133,255,.12); }
-    .about-journey > .about-chapter:nth-child(2) { --chapter-clr: rgba(139,92,246,.38); --chapter-shadow: rgba(139,92,246,.55); --chapter-ring: rgba(139,92,246,.12); }
-    #about-extra .about-chapter:nth-child(1)      { --chapter-clr: rgba(34,197,94,.38);  --chapter-shadow: rgba(34,197,94,.55);  --chapter-ring: rgba(34,197,94,.12); }
-    #about-extra .about-chapter:nth-child(2)      { --chapter-clr: rgba(245,158,11,.38); --chapter-shadow: rgba(245,158,11,.55); --chapter-ring: rgba(245,158,11,.12); }
-    #about-extra .about-chapter:nth-child(3)      { --chapter-clr: rgba(236,72,153,.38); --chapter-shadow: rgba(236,72,153,.55); --chapter-ring: rgba(236,72,153,.12); }
+    /* ── Mission block (chapter 5) — unified glass ── */
+    .about-mission {
+        background: rgba(255,255,255,.03);
+        border: 1px solid rgba(255,255,255,.08);
+        border-left: 3px solid rgba(0,133,255,.42);
+        border-radius: 0 12px 12px 0;
+        padding: 20px 22px 20px 26px;
+        margin-bottom: 12px; line-height: 1.8;
+        position: relative; overflow: hidden;
+    }
+    .about-mission::after {
+        content: '';
+        position: absolute; top: 0; right: 0; bottom: 0;
+        width: 40%;
+        background: linear-gradient(to right, transparent, rgba(0,133,255,.03));
+        pointer-events: none;
+    }
 
     /* ── Collapsible bodies ── */
     .about-ch-body {
@@ -1741,8 +1759,8 @@
         transition: max-height .7s cubic-bezier(.4,0,.2,1), opacity .55s ease;
     }
     #about-extra.open .about-ch-body { max-height: 800px; opacity: 1; }
-    #about-extra .about-chapter { padding-bottom: 16px; }
-    #about-extra.open .about-chapter { padding-bottom: 36px; }
+    #about-extra .about-chapter { padding-bottom: 20px; }
+    #about-extra.open .about-chapter { padding-bottom: 40px; }
     #about-extra .about-chapter:last-child { padding-bottom: 0; }
 
     /* ── Read more button ── */
@@ -1809,9 +1827,13 @@
     /* ── Clickable chapter labels in collapsed area ── */
     #about-extra .about-chapter-label {
         cursor: pointer;
-        transition: color .25s, opacity .25s;
+        transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
     }
-    #about-extra .about-chapter-label:hover { color: var(--text); opacity: 1; }
+    #about-extra .about-chapter-label:hover {
+        background: rgba(0,198,255,.14);
+        border-color: rgba(0,198,255,.26);
+        color: rgba(180,230,255,1);
+    }
     .about-ch-body.ch-open { max-height: 800px !important; opacity: 1 !important; }
     .about-chapter.ch-open { padding-bottom: 36px !important; }
 
@@ -1967,15 +1989,35 @@
     [data-theme="light"] .sk-chip:hover {
         box-shadow: 0 12px 32px rgba(0,80,200,.13);
     }
-    [data-theme="light"] .about-chapter {
-        background: rgba(255,255,255,.70);
-        border-color: rgba(0,100,200,.12);
-    }
     [data-theme="light"] .about-callout {
-        background: rgba(0,133,255,.07);
-        border-color: rgba(0,133,255,.25);
+        background: rgba(0,133,255,.05);
+        border-color: rgba(0,133,255,.2);
+        border-left-color: rgba(0,133,255,.55);
         color: #0a3060;
     }
+    [data-theme="light"] .about-mission {
+        background: rgba(4,9,26,.03);
+        border-color: rgba(4,9,26,.07);
+        border-left-color: rgba(0,133,255,.4);
+    }
+    [data-theme="light"] .about-dot.is-inactive { background: rgba(0,0,0,.18); border-color: rgba(0,0,0,.12); }
+    [data-theme="light"] .about-chapter-label {
+        color: rgba(0,60,140,.7);
+        background: rgba(0,133,255,.06);
+        border-color: rgba(0,133,255,.14);
+    }
+    [data-theme="light"] .about-chapter:hover .about-chapter-label {
+        background: rgba(0,133,255,.12);
+        border-color: rgba(0,133,255,.22);
+        color: rgba(0,60,160,.9);
+    }
+    [data-theme="light"] .about-journey::before {
+        background: linear-gradient(to bottom, rgba(0,133,255,.4) 0%, rgba(0,133,255,.14) 55%, transparent 100%);
+    }
+    [data-theme="light"] .pills-label { color: rgba(4,9,26,.32); }
+    [data-theme="light"] .pill { background: rgba(0,0,0,.03); border-color: rgba(0,0,0,.08); color: rgba(4,9,26,.72); }
+    [data-theme="light"] .pill i { color: var(--blue); }
+    [data-theme="light"] .pill:hover { background: rgba(0,133,255,.08); border-color: rgba(0,133,255,.2); color: var(--blue); box-shadow: 0 4px 12px rgba(0,133,255,.10); }
     [data-theme="light"] .svc-card {
         background: rgba(255,255,255,.88);
         border-color: rgba(0,100,200,.13);
@@ -2050,7 +2092,8 @@
     }
     @media (max-width: 640px) {
         .about-card { padding: 28px 20px 24px; }
-        .about-chapter { padding-left: 48px; }
+        .about-journey { padding-left: 22px; }
+        .about-dot { left: -22px; }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -2459,7 +2502,7 @@
 
                 <!-- Chapter 1 — always visible -->
                 <div class="about-chapter">
-                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,var(--blue),var(--sky));">1</div>
+                    <div class="about-dot is-active"></div>
                     <div class="about-chapter-label"><i class="fa-solid fa-user fa-xs"></i> Who I Am</div>
                     <p class="about-text about-intro-text">
                         I’m <strong>Oluwatosin Adegboye</strong>, a <span class="grad-text">multi-disciplinary digital professional</span> who builds modern business websites, seamless mobile applications, creates compelling visual designs, and mentors people in skill development, leadership, and personal growth.
@@ -2468,7 +2511,7 @@
 
                 <!-- Chapter 2 — always visible -->
                 <div class="about-chapter">
-                    <div class="about-chapter-marker" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">2</div>
+                    <div class="about-dot is-active"></div>
                     <div class="about-chapter-label"><i class="fa-solid fa-road fa-xs"></i> How It Started</div>
                     <p class="about-text">
                         I started like most people, trying to figure out how to make money online without getting lost or overwhelmed. At the time, I was broke, frustrated, and unsure of what direction to take. I invested in the wrong platforms many times, made costly mistakes, and struggled to find something that truly worked.
@@ -2479,7 +2522,7 @@
                 <div id="about-extra">
 
                     <div class="about-chapter">
-                        <div class="about-chapter-marker" style="background:linear-gradient(135deg,#22c55e,#4ade80);">3</div>
+                        <div class="about-dot is-inactive"></div>
                         <div class="about-chapter-label"><i class="fa-solid fa-bolt fa-xs"></i> The Turning Point</div>
                         <div class="about-ch-body">
                             <p class="about-text about-callout">
@@ -2489,7 +2532,7 @@
                     </div>
 
                     <div class="about-chapter">
-                        <div class="about-chapter-marker" style="background:linear-gradient(135deg,#f59e0b,#fb923c);">4</div>
+                        <div class="about-dot is-inactive"></div>
                         <div class="about-chapter-label"><i class="fa-solid fa-briefcase fa-xs"></i> My Business Journey</div>
                         <div class="about-ch-body">
                             <p class="about-text">
@@ -2502,7 +2545,7 @@
                     </div>
 
                     <div class="about-chapter">
-                        <div class="about-chapter-marker" style="background:linear-gradient(135deg,#ec4899,#f472b6);">5</div>
+                        <div class="about-dot is-inactive"></div>
                         <div class="about-chapter-label"><i class="fa-solid fa-flag fa-xs"></i> My Mission Today</div>
                         <div class="about-ch-body">
                             <p class="about-text about-mission">
@@ -2525,13 +2568,14 @@
 
             </div>
             <div class="divider"></div>
+            <div class="pills-label">My Expertise</div>
             <div class="pills">
-                <span class="pill pill-blue"><i class="fa-solid fa-code"></i> Full-Stack Dev</span>
-                <span class="pill pill-purple"><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</span>
-                <span class="pill pill-cyan"><i class="fa-solid fa-pen-ruler"></i> Graphic Design</span>
-                <span class="pill pill-orange"><i class="fa-solid fa-chart-line"></i> Business Coach</span>
-                <span class="pill pill-green"><i class="fa-solid fa-people-group"></i> Network Marketing</span>
-                <span class="pill pill-red"><i class="fa-solid fa-lightbulb"></i> Productivity Mentor</span>
+                <span class="pill"><i class="fa-solid fa-code"></i> Full-Stack Dev</span>
+                <span class="pill"><i class="fa-solid fa-mobile-screen"></i> Mobile Apps</span>
+                <span class="pill"><i class="fa-solid fa-pen-ruler"></i> Graphic Design</span>
+                <span class="pill"><i class="fa-solid fa-chart-line"></i> Business Coach</span>
+                <span class="pill"><i class="fa-solid fa-people-group"></i> Network Marketing</span>
+                <span class="pill"><i class="fa-solid fa-lightbulb"></i> Productivity Mentor</span>
             </div>
         </div>
     </section>
